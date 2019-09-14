@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
+.mat-list-base {
+    padding-top: 0 !important;
+}
+.mat-list-item-content > a {
+    height: 30px !important;
+    background-color: #E9EBEC !important;
+}
+.mat-nav-list .mat-list-item.selected > .mat-list-item-content > a {
+    height: 30px !important;
+}
+.mat-nav-list .mat-list-item a {
+    margin-bottom: 0 !important;
+    color: #050304 !important;
+    border-bottom: 1px solid #FFF !important;
+}
+.mat-nav-list .mat-list-item .mat-list-item-content {
+    padding: 0 0 !important;
+}
+.logo-icon {
+    width: 100px;
+    height: auto;
+}
+.topbar {
+    background-color: #3b5160 !important;
+}
+.profile-text {
+    border-bottom: 2px solid #3b5160;
+}
+.bg-header {
+    background-color: #3b516042;
+    border-bottom: 2px solid #3b5160;
+}
+.mat-card-header {
+    padding: 4px !important;
+}
+.mat-card .mat-card-content {
+    padding: 0 !important;
+}
+.blue .mat-tab-group.mat-primary .mat-ink-bar, .blue .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #3b5160 !important;
+}
+.mat-drawer.mat-drawer-side {
+    margin-top: 10px;
+}
+.page-wrapper .page-content {
+    padding: 0 !important;
+}
+a {
+    color: #1e88e5;
+}
