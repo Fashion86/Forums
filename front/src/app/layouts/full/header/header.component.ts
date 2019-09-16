@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -70,4 +71,26 @@ export class AppHeaderComponent {
       time: '9:00 AM'
     }
   ];
+
+  user: any;
+  constructor(
+      private router: Router
+  ) {
+    this.user = JSON.parse(localStorage.getItem('profile'));
+    // this.user.role.forEach(role => {
+    //   if (role.name === 'ROLE_ADMIN') {
+    //     this.isadmin = true;
+    //   }
+    // });
+  }
+
+  onLogin() {
+    this.router.navigate(['/authentication/login']);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('profile');
+    this.router.navigate(['/authentication/login']);
+  }
 }

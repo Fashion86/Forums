@@ -2,14 +2,16 @@
 
 namespace App;
 
-use Hash;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'is_activated', 'is_activated_article', 'avatar_path'
     ];
 
     /**
@@ -30,15 +32,13 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * Automatically creates hash for the user password.
+     * The attributes that should be cast to native types.
      *
-     * @param  string  $value
-     * @return void
+     * @var array
      */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

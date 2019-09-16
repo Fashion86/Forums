@@ -7,6 +7,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import {AuthService} from "../../services/auth.service";
 
 const password = new FormControl('', Validators.required);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
@@ -18,10 +19,14 @@ const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 })
 export class RegisterComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private _authService: AuthService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
+      username: [
+        null,
+        Validators.compose([Validators.required])
+      ],
       email: [
         null,
         Validators.compose([Validators.required, CustomValidators.email])
@@ -32,6 +37,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['/']);
+    const postdata = {
+      username: this.form.value.username,
+      email: this.form.value.email,
+      password: this.form.value.password};
+    this._authService.signup(postdata)
+        .subscribe(
+            data => {
+              if (data['success']) {
+                this.router.navigate(['/authentication/login']);
+              } else {
+
+              }
+            });
   }
 }

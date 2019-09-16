@@ -11,6 +11,13 @@
             <!-- col full-->
             <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
               <mat-form-field style="width: 100%">
+                <input matInput placeholder="User Name" type="email" [formControl]="form.controls['username']">
+              </mat-form-field>
+              <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">You must include a user name.</small>
+            </div>
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <mat-form-field style="width: 100%">
                 <input matInput placeholder="Email address" type="email" [formControl]="form.controls['email']">
               </mat-form-field>
               <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">You must include an email address.</small>

@@ -53,12 +53,14 @@
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
-                <mat-paginator [length]="totalCount"
-                               [pageSize]="pageSize"
-                               [pageIndex]="pageIndex"
-                               [pageSizeOptions]="[30, 50, 100]"
-                               (page)="setPage($event)">
-                </mat-paginator>
+                <div class="top-header">
+                  <mat-paginator [length]="totalCount"
+                                 [pageSize]="pageSize"
+                                 [pageIndex]="pageIndex"
+                                 [pageSizeOptions]="[30, 50, 100]"
+                                 (page)="setPage($event)">
+                  </mat-paginator>
+                </div>
               </div>
             </mat-card-content>
           </mat-tab>
@@ -100,17 +102,22 @@
                             <div id="blogPostInfo" class="blogInfoBoxContent">
                               The Breeders’ Cup Classic is the most valuable horse race run in the United States each year and considered by many to be the most prestigious horse race run in the world. Raven’s Pass became the firs
                             </div>
-                            <div class="spreader"></div>
+
                             <div class="blogNumComments">
-                              <a href="https://community.betfair.com/racecaller08/blog/2011/10/17/breeders-cup-classic-10-year-trends#comments" class="blogNumCommentsLink" title="View comments">
-                                <span class="blogNumCommentsNumber">0 Comments</span>
-                              </a>
-                              <span class="oneBlogViewCountContainer">
-                            <span class="oneBrace openingBrace">[</span>
-                            <span class="oneBlogViewCount">
-                            4020 views							</span>
-                            <span class="oneBrace closingBrace">]</span>
-                            </span>
+                              <div>
+                                <mat-icon style="color: #1e88e5b3">chat_bubble_outline</mat-icon>
+                              </div>
+                              <div>
+                                <a href="https://community.betfair.com/racecaller08/blog/2011/10/17/breeders-cup-classic-10-year-trends#comments" class="blogNumCommentsLink" title="View comments">
+                                  <span class="blogNumCommentsNumber">0 Comments</span>
+                                </a>
+                                <span class="oneBlogViewCountContainer">
+                                <span class="oneBrace openingBrace">[</span>
+                                <span class="oneBlogViewCount">
+                                4020 views							</span>
+                                <span class="oneBrace closingBrace">]</span>
+                              </span>
+                              </div>
                             </div>
                             <div id="followBlogButton">
                             </div>
