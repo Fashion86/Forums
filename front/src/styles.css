@@ -33,12 +33,7 @@
     background-color: #3b516042;
     border-bottom: 2px solid #3b5160;
 }
-.mat-card-header {
-    padding: 4px !important;
-}
-.mat-card .mat-card-content {
-    padding: 0 !important;
-}
+
 .blue .mat-tab-group.mat-primary .mat-ink-bar, .blue .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: #3b5160 !important;
 }

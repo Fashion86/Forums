@@ -21,12 +21,12 @@ class AuthController extends Controller
     public function registerUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required',
-            'password'=> 'required',
+            'password'=> 'required|min:6',
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json(['error' => $validator->errors()], 404);
         }
 
         User::create([
@@ -37,7 +37,7 @@ class AuthController extends Controller
         $user = User::first();
         $token = JWTAuth::fromUser($user);
 
-        return Response::json(['result'=>'success', 'user'=>$user, 'token'=>$token]);
+        return Response::json(['success'=>true, 'user'=>$user, 'token'=>$token]);
     }
 
     public function setUserRole(Request $request)
@@ -65,7 +65,7 @@ class AuthController extends Controller
             'password'=> 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json(['error' => $validator->errors()], 404);
         }
         $credentials = $request->only('email', 'password');
         try {
@@ -80,17 +80,17 @@ class AuthController extends Controller
             $user = Auth::getUser();
         }
 
-        if (!$user->active_status) {
+        if ($user->is_activated != 1) {
             return response()->json(['error'=>'Your Account is Deactivated, Contact Admin'], 401);
         }
 
-        $roles = array();
-        foreach ($user->roles as $role){
-            $roles[] = $role->name;
-        }
-        $user->roleNames = $roles;
+//        $roles = array();
+//        foreach ($user->role as $role){
+//            $roles[] = $role->name;
+//        }
+//        $user->roleNames = $roles;
 //        $token = JWTAuth::fromUser($user);
-        return response()->json(['token'=>$token, 'user'=>$user]);
+        return response()->json(['success'=>true, 'token'=>$token, 'user'=>$user]);
     }
 
     public function me()

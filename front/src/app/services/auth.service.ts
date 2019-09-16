@@ -11,9 +11,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public authenticate(email: string, password: string) {
+  public login(email: string, password: string) {
     return this.http
-        .post(Constants.API_URL + '/api/auth/login', {
+        .post(Constants.API_URL + '/api/login', {
           email: email,
           password: password
         })
@@ -25,6 +25,14 @@ export class AuthService {
   public signup(data) {
     return this.http
         .post(Constants.API_URL + '/api/register', data)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
+  public logout() {
+    return this.http
+        .post(Constants.API_URL + '/api/logout', {}, this.jwt())
         .pipe(
             map((response: Response) => response)
         );
@@ -48,6 +56,13 @@ export class AuthService {
         .pipe(
             map((response: Response) => response)
         );
+  }
+
+  private jwt() {
+    if (localStorage.getItem("token")) {
+      const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));
+      return {headers: headers};
+    }
   }
 }
 

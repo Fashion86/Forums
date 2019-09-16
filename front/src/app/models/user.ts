@@ -2,7 +2,7 @@ export class User {
   id: number;
   username: string;
   email: string;
-  is_activated: boolean;
+  is_activated: number;
   is_activated_article: boolean;
   avatar_path: string;
   join_time: Date;

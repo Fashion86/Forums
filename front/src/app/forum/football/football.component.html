@@ -28,7 +28,7 @@
                   <!--</ngx-datatable-column>-->
                 <!--</ngx-datatable>-->
                 <div class="top-header">
-                  <button mat-flat-button color="primary" class="btn pull-right">Create Topic</button>
+                  <button mat-flat-button color="primary" class="btn pull-right" (click)="onCreateTopic()">Create Topic</button>
                   <mat-paginator [length]="totalCount"
                                  [pageSize]="pageSize"
                                  [pageIndex]="pageIndex"
@@ -42,6 +42,20 @@
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Title</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
                       <a style="color: #2789CE; font-weight: 500" > {{ element.title }} </a>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="author">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Author</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <!--<a style="color: #2789CE; font-weight: 500" > {{ element.title }} </a>-->
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="posts">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Posts</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <!--<a style="color: #2789CE; font-weight: 500" > {{ element.title }} </a>-->
                     </mat-cell>
                   </ng-container>
 
@@ -140,8 +154,8 @@
                                           </div>
                                           <div class="miniProfileComponent mpc_avatar">
                                             <div class="miniProfileAvatar">
-                                              <a href="https://community.betfair.com/racecaller08" title="Racecaller08">
-                                                <img src="https://community.cdnbf.net/community.betfair.com/user/racecaller08/avatar.jpg?type=user&amp;ts=0712-1657" alt="Racecaller08">
+                                              <a href="#" title="Racecaller08">
+                                                <img src="assets/images/man.png" style="width: 50px" alt="user">
                                               </a>
                                             </div>
                                           </div>

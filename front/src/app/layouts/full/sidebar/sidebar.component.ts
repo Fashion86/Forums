@@ -22,6 +22,8 @@ export class AppSidebarComponent implements OnDestroy {
 
   private _mobileQueryListener: () => void;
   status: boolean = false;
+  sidemenus: any[] = [];
+  user: any;
   clickEvent() {
     this.status = !this.status;
   }
@@ -34,9 +36,21 @@ export class AppSidebarComponent implements OnDestroy {
     media: MediaMatcher,
     public menuItems: MenuItems
   ) {
+    this.sidemenus = menuItems.getMenuitem();
+    this.user = JSON.parse(localStorage.getItem('profile'));
+    if (this.user && this.user.role === 'admin') {
+      const usermenu =    {
+        state: 'forum/users',
+            name: 'Users',
+          type: 'extLink'
+      };
+      this.sidemenus.unshift(usermenu);
+    }
+
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
   }
 
   ngOnDestroy(): void {

@@ -12,9 +12,10 @@
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Username" [formControl]="form.controls['uname']">
+                                <input matInput placeholder="Email" [formControl]="form.controls['email']">
                             </mat-form-field>
-                            <small *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched" class="text-danger support-text">Username is required.</small>
+                            <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">Email is required.</small>
+                            <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">You must include a valid email address.</small>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -22,6 +23,10 @@
                                 <input matInput type="password" placeholder="Password" [formControl]="form.controls['password']">
                             </mat-form-field>
                             <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger support-text">Password is required.</small>
+                        </div>
+                        <!-- col error-->
+                        <div *ngIf="errorStr" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <small  class="text-danger support-text">{{errorStr}}</small>
                         </div>
                         <!-- col half-->
                         <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">

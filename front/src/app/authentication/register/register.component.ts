@@ -9,7 +9,7 @@ import {
 import { CustomValidators } from 'ng2-validation';
 import {AuthService} from "../../services/auth.service";
 
-const password = new FormControl('', Validators.required);
+const password = new FormControl('', [Validators.required]);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 
 @Component({
@@ -19,9 +19,11 @@ const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 })
 export class RegisterComponent implements OnInit {
   public form: FormGroup;
+  errorStr = null;
   constructor(private fb: FormBuilder, private router: Router, private _authService: AuthService) {}
 
   ngOnInit() {
+    this.errorStr = null;
     this.form = this.fb.group({
       username: [
         null,
@@ -34,6 +36,9 @@ export class RegisterComponent implements OnInit {
       password: password,
       confirmPassword: confirmPassword
     });
+    this.form.valueChanges.subscribe( (data) => {
+      this.errorStr = null;
+    });
   }
 
   onSubmit() {
@@ -44,10 +49,21 @@ export class RegisterComponent implements OnInit {
     this._authService.signup(postdata)
         .subscribe(
             data => {
-              if (data['success']) {
-                this.router.navigate(['/authentication/login']);
-              } else {
+                  if (data['success']) {
+                    this.router.navigate(['/authentication/login']);
+                  } else {
 
+                  }
+                },
+            error => {
+              const err = error['error'];
+              if (err && err['error']) {
+                for (let key in err['error']) {
+                  if (err['error'].hasOwnProperty(key)) {
+                      this.errorStr = key + " -> " + err['error'][key][0];
+                      break;
+                  }
+                }
               }
             });
   }

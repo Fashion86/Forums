@@ -7,6 +7,8 @@ import {
   FormControl
 } from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
+import { CustomValidators } from 'ng2-validation';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -15,32 +17,42 @@ import {AuthService} from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router, private _authService: AuthService) {}
+  errorStr = null;
+  constructor(private fb: FormBuilder, private router: Router,
+              private _authService: AuthService, private location: Location) {}
 
   ngOnInit() {
+    this.errorStr = null;
     this.form = this.fb.group({
-      uname: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required, CustomValidators.email])],
       password: [null, Validators.compose([Validators.required])]
+    });
+    this.form.valueChanges.subscribe( (data) => {
+      this.errorStr = null;
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   onSubmit() {
-    this._authService.authenticate(this.form.value.uname, this.form.value.password)
+    this._authService.login(this.form.value.email, this.form.value.password)
         .subscribe(
             data => {
               if (data['success']) {
-                localStorage.setItem('token', data['result'].token);
-                localStorage.setItem('profile', JSON.stringify(data['result'].profile));
+                localStorage.setItem('token', data['token']);
+                localStorage.setItem('profile', JSON.stringify(data['user']));
+                // this.router.navigate(['/forum/football'] );
+                this.goBack();
               } else {
-                // if (data['errors'][0].code === 400) {
-                //   this.errorStr = 'Wrong email or password';
-                // }
-                // let errlist = [];
-                // if (data['errors'][0].code === 3 && data['errors'][0].txt) {
-                //   errlist = data['errors'][0].txt.split(':');
-                //   this.errorStr = errlist[errlist.length - 1];
-                // }
-                // this.errorMessage = true;
+
+              }
+            },
+            error => {
+              const err = error['error'];console.log('dddd', err)
+              if (err && err['error']) {
+                this.errorStr = err['error'];
               }
             });
   }

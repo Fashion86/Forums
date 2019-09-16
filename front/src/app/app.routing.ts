@@ -78,6 +78,6 @@ export const AppRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'authentication/404'
+    redirectTo: '/forum/football'
   }
 ];

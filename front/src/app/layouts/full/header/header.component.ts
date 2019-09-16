@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {Router} from '@angular/router';
+import {AuthService} from "../../../services/auth.service";
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -40,41 +42,9 @@ export class AppHeaderComponent {
     }
   ];
 
-  // This is for Mymessages
-  mymessages: Object[] = [
-    {
-      useravatar: 'assets/images/users/1.jpg',
-      status: 'online',
-      from: 'Pavan kumar',
-      subject: 'Just see the my admin!',
-      time: '9:30 AM'
-    },
-    {
-      useravatar: 'assets/images/users/2.jpg',
-      status: 'busy',
-      from: 'Sonu Nigam',
-      subject: 'I have sung a song! See you at',
-      time: '9:10 AM'
-    },
-    {
-      useravatar: 'assets/images/users/2.jpg',
-      status: 'away',
-      from: 'Arijit Sinh',
-      subject: 'I am a singer!',
-      time: '9:08 AM'
-    },
-    {
-      useravatar: 'assets/images/users/4.jpg',
-      status: 'offline',
-      from: 'Pavan kumar',
-      subject: 'Just see the my admin!',
-      time: '9:00 AM'
-    }
-  ];
-
   user: any;
   constructor(
-      private router: Router
+      private router: Router, private _authService: AuthService
   ) {
     this.user = JSON.parse(localStorage.getItem('profile'));
     // this.user.role.forEach(role => {
@@ -91,6 +61,17 @@ export class AppHeaderComponent {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
-    this.router.navigate(['/authentication/login']);
+    window.location.reload();
+    // this.user = JSON.parse(localStorage.getItem('profile'));
+    // this._authService.logout()
+    //     .subscribe(
+    //         data => {
+    //           localStorage.removeItem('token');
+    //           localStorage.removeItem('profile');
+    //           this.user = null;
+    //         },
+    //         error => {
+    //
+    //         });
   }
 }

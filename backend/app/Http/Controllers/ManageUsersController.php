@@ -115,7 +115,7 @@ class ManageUsersController extends Controller
 
     public function activeUser(Request $request) {
         $user = User::find($request->get('id'));
-        $user->update(['active_status'=>$request->get('active_status')]);
+        $user->update(['is_activated'=>$request->get('is_activated')]);
 
         $user = User::first();
         $token = JWTAuth::fromUser($user);
@@ -168,13 +168,13 @@ class ManageUsersController extends Controller
     public function getUsers() {
         try {
 //            $user = JWTAuth::toUser(JWTAuth::parseToken());
-            $page = Input::get('pageNo') != "null" ? Input::get('pageNo') : 1;
-            $limit = Input::get('numPerPage') != "null" ? Input::get('numPerPage') : 10;
-            $role_name = Input::get('rolename') != "null" ? Input::get('rolename') : "null";
+            $page = Input::get('pageNo') != null ? Input::get('pageNo') : 1;
+            $limit = Input::get('numPerPage') != null ? Input::get('numPerPage') : 30;
+            $role_name = Input::get('rolename') != null ? Input::get('rolename') : null;
 
-            if ($role_name=="null") {
+            if ($role_name == null) {
                 $totalCount = count(User::all());
-                $users = User::orderBy('updated_at', 'desc')->skip(($page - 1) * $limit)->take($limit)->get();
+                $users = User::orderBy('username', 'asc')->skip(($page - 1) * $limit)->take($limit)->get();
             } else {
                 $role = Role::findByName($role_name);
                 $totalCount = count(User::role($role)->get());
@@ -183,12 +183,12 @@ class ManageUsersController extends Controller
             if ($totalCount == 0) {
                 return response()->json(['totalCount'=>$totalCount, 'userdata'=>[]], 200);
             } else {
-                foreach ($users as $user) {
-                    $roles = $this->getUserRoles($user);
-                    $user->push($roles);
-                    $userdatas[] = $user;
-                }
-                return response()->json(['totalCount'=>$totalCount, 'userdata'=>$userdatas], 200);
+//                foreach ($users as $user) {
+//                    $roles = $this->getUserRoles($user);
+//                    $user->push($roles);
+//                    $userdatas[] = $user;
+//                }
+                return response()->json(['totalCount'=>$totalCount, 'userdata'=>$users], 200);
             }
         } catch (JWTException $e) {
             return response()->json(['error'=>'User is not Logged in'], 500);

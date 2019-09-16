@@ -20,9 +20,11 @@ import { TennisComponent } from './tennis/tennis.component';
 import { RagbiComponent } from './ragbi/ragbi.component';
 import { DemoMaterialModule } from '../demo-material-module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UsersComponent } from './users/users.component';
+import { TopicComponent } from './topic/topic.component';
 
 @NgModule({
-  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent],
+  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent],
   imports: [
       CommonModule,
       RouterModule.forChild(ForumRoutes),

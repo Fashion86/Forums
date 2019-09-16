@@ -13,6 +13,13 @@
     line-height: 0;
   }
 }
+:host /deep/ .mat-card-header {
+  padding: 4px !important;
+}
+:host /deep/ .mat-card .mat-card-content {
+  padding: 0 !important;
+}
+
 :host /deep/ .mat-tab-labels {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%, rgba(59, 81, 96, 0.26)));
 }
@@ -56,6 +63,8 @@
   }
   .blogInfoBoxContent {
     min-height: 10px !important;
+    color: #000;
+    font: 12px Tahoma, Arial, sans-serif;
   }
 }
 
