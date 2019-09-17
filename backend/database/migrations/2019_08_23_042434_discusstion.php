@@ -17,9 +17,9 @@ class Discusstion extends Migration
             $table->increments('id');
             $table->string('title');
             $table->mediumText('content');
-            $table->unsignedInteger('post_count');
+//            $table->unsignedInteger('post_count')->default(0);
             $table->unsignedInteger('view_count')->default(0);
-            $table->unsignedInteger('tag_id');
+//            $table->unsignedInteger('tag_id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
             $table->boolean('is_approved')->default(true);
@@ -27,9 +27,9 @@ class Discusstion extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('tag_id')
-                ->references('id')
-                ->on('tags');
+//            $table->foreign('tag_id')
+//                ->references('id')
+//                ->on('tags');
 
             $table->foreign('category_id')
                 ->references('id')
@@ -48,8 +48,6 @@ class Discusstion extends Migration
      */
     public function down()
     {
-        Schema::table('discusstions', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('discusstions');
     }
 }

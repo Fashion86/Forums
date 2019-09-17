@@ -46,3 +46,12 @@
 a {
     color: #1e88e5;
 }
+#snav .saperator {
+    margin-left: 10px;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+}
+.mat-dialog-container {
+    padding: 10px !important;
+    overflow: hidden !important;
+}

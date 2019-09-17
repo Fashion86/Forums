@@ -6,11 +6,17 @@ import { TennisComponent } from './tennis/tennis.component';
 import { RagbiComponent } from './ragbi/ragbi.component';
 import { UsersComponent } from './users/users.component';
 import { TopicComponent } from './topic/topic.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { HomeComponent } from './home/home.component';
 
 export const ForumRoutes: Routes = [
   {
     path: '',
     children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
       {
         path: 'users',
         component: UsersComponent
@@ -37,12 +43,12 @@ export const ForumRoutes: Routes = [
         component: TennisComponent
       },
       {
-        path: 'ragbi',
+        path: 'rugby',
         component: RagbiComponent
       },
       {
-        path: 'topic',
-        component: TopicComponent
+        path: 'contact-us',
+        component: ContactUsComponent
       }
     ]
   }

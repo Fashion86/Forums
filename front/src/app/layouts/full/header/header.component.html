@@ -77,20 +77,24 @@
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
-<div *ngIf="user">
-    <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-        <img src="assets/images/man.png" alt="user" class="profile-pic"> </button>
-    <mat-menu #profile="matMenu" class="mymegamenu">
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon> Settings </button>
-        <button mat-menu-item>
-            <mat-icon>account_box</mat-icon> Profile </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon> Disable notifications </button>
-        <button mat-menu-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> Sign Out </button>
-    </mat-menu>
+<div style="display: flex">
+    <button mat-icon-button class="m-r-5" style="width: 100px;" (click)="onContactUs()">Contact Us </button>
+    <div *ngIf="user">
+        <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
+            <img src="assets/images/man.png" alt="user" class="profile-pic"> </button>
+        <mat-menu #profile="matMenu" class="mymegamenu">
+            <button mat-menu-item>
+                <mat-icon>settings</mat-icon> Settings </button>
+            <button mat-menu-item>
+                <mat-icon>account_box</mat-icon> Profile </button>
+            <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon> Disable notifications </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+        </mat-menu>
+    </div>
+    <div *ngIf="!user">
+        <button mat-icon-button class="m-r-5" (click)="onLogin()">Log In</button>
+    </div>
 </div>
-<div *ngIf="!user">
-    <button mat-icon-button class="m-r-5" (click)="onLogin()">Log In</button>
-</div>
+

@@ -34,6 +34,13 @@ export class UsersService {
         );
   }
 
+  delUser(userId) {
+    return this.http
+        .delete(Constants.API_URL + '/api/user/' + userId, this.jwt())
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
   private jwt() {
     if (localStorage.getItem("token")) {
       const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));

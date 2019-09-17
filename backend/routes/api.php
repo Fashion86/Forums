@@ -31,7 +31,9 @@ Route::group([
     Route::post('createUser', 'ManageUsersController@createUser');
     Route::post('updateUser', 'ManageUsersController@updateUser');
     Route::post('activeUser', 'ManageUsersController@activeUser');
-    Route::post('deleteUser', 'ManageUsersController@deleteUser');
+    Route::delete('user/{id}', 'ManageUsersController@deleteUser');
+
+    Route::post('topic', 'TopicController@addTopic');
     Route::get('getRoleNames', 'ManageUsersController@getRoleNames');
     Route::get('getUsers', 'ManageUsersController@getUsers');
     Route::get('getUser', 'ManageUsersController@getUserByID');

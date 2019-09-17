@@ -4,46 +4,46 @@
       <mat-card-content>
         <mat-card-title class="p-b-20">Create New Topic</mat-card-title>
 
-        <mat-vertical-stepper [linear]="true" #stepper>
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Tags</ng-template>
-              <mat-form-field>
-                <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (remove)="remove(tag)">
-                    {{tag.name}}
-                    <mat-icon matChipRemove (click)="remove(tag)">cancel</mat-icon>
-                  </mat-chip>
-                  <input placeholder="Add Tags..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
-                         (matChipInputTokenEnd)="add($event)" />
-                </mat-chip-list>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperNext>Next</button>
+            <form [formGroup]="tagFormGroup" (ngSubmit)="onSubmit()">
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                  <mat-form-field class="example-chip-list">
+                  <mat-chip-list #chipList formArrayName="tags">
+                    <mat-chip
+                        *ngFor="let name of tagFormGroup.get('tags')['controls']; let i=index;"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(tagFormGroup, i)">
+                      {{name.value}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Tags"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]="addOnBlur"
+                           (matChipInputTokenEnd)="add($event, tagFormGroup)">
+                  </mat-chip-list>
+                  <mat-error>Atleast 1 tag need to be added</mat-error>
+                </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="Title" [formControl]="tagFormGroup.controls['title']">
+                  </mat-form-field>
+                  <small *ngIf="tagFormGroup.controls['title'].hasError('required') && tagFormGroup.controls['title'].touched" class="text-danger support-text">Title is required.</small>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="padding-top: 15px">
+                    <quill-editor [style]="{height: '300px'}" [formControl]="tagFormGroup.controls['content']"></quill-editor>
+                  <small *ngIf="tagFormGroup.controls['content'].hasError('required') && tagFormGroup.controls['content'].touched" class="text-danger support-text">Content is required.</small>
+                  <small *ngIf="tagFormGroup.controls['content'].hasError('minlength')" class="text-danger support-text">Content must be more than 30 characters.</small>
+                </div>
+
+                <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="25">
+                  <button mat-raised-button color="accent" class="submit-button m-t-20" type="submit"
+                          [disabled]="!tagFormGroup.valid">Submit</button>
+                </div>
               </div>
             </form>
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Title</ng-template>
-              <mat-form-field>
-                <input matInput placeholder="Title" formControlName="secondCtrl" required>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Content</ng-template>
-            You are now done.
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
-          </mat-step>
-        </mat-vertical-stepper>
       </mat-card-content>
     </mat-card>
   </div>

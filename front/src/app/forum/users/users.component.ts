@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {User} from "../../models/user";
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {UsersService} from "../../services/users.service";
+import {ConfirmDlgComponent} from '../confirm-dlg/confirm-dlg.component';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +15,9 @@ export class UsersComponent implements OnInit {
   displayedColumns = ['username', 'email', 'option'];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private _usersService: UsersService) { }
+  constructor(private _usersService: UsersService,
+              public snackBar: MatSnackBar,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getUsers();
@@ -73,26 +76,30 @@ export class UsersComponent implements OnInit {
   }
 
   deleteData(user: User): void {
-    // const dialogRef = this.dialog.open(ConfirmDlgComponent, {
-    //   width: '350px',
-    //   panelClass: 'custom-modalbox',
-    //   data: {msg: 'Are you sure delete it?'}
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(accept => {
-    //   if (accept) {
-    //     this._productService.delProduct(product)
-    //         .subscribe(
-    //             data => {
-    //               this.ngOnInit();
-    //               this.snackBar.open('Success Deleted!', 'Close', {
-    //                 duration: 5000,
-    //                 panelClass: 'blue-snackbar'
-    //               });
-    //             }, error => {
-    //               console.log(error);
-    //             });
-    //   }
-    // });
+    const dialogRef = this.dialog.open(ConfirmDlgComponent, {
+      width: '350px',
+      height: '150px',
+      panelClass: 'custom-modalbox',
+      data: {msg: 'Are you sure delete it?'}
+    });
+
+    dialogRef.afterClosed().subscribe(accept => {
+      if (accept) {
+        this._usersService.delUser(user.id)
+            .subscribe(
+                data => {
+                  this.ngOnInit();
+                  this.snackBar.open('Success Deleted!', 'Close', {
+                    duration: 5000,
+                    panelClass: 'blue-snackbar'
+                  });
+                }, error => {
+                  this.snackBar.open('Error Delete!', 'Close', {
+                    duration: 5000,
+                    panelClass: 'blue-snackbar'
+                  });
+                });
+      }
+    });
   }
 }

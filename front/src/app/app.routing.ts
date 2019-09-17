@@ -15,7 +15,7 @@ export const AppRoutes: Routes = [
       // },
       {
           path: '',
-          redirectTo: '/forum/football',
+          redirectTo: '/forum',
           pathMatch: 'full'
       },
       {
@@ -78,6 +78,6 @@ export const AppRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/forum/football'
+    redirectTo: 'authentication/404'
   }
 ];

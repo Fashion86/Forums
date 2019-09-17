@@ -123,14 +123,13 @@ class ManageUsersController extends Controller
         return response()->json(['data'=>'User Successfully Changed', 'token'=>$token], 201);
     }
 
-    public function deleteUser(Request $request) {
-        $user = User::find($request->get('id'));
-        $user->syncRoles([]);
+    public function deleteUser($id) {
+        $user = User::find($id);
         try {
             $user->delete();
             return response()->json(['success'=>'User Successfully Removed']);
         } catch(\Exception $e) {
-            return response()->json(['error'=>'User Remove Failed']);
+            return response()->json(['error'=>$e], 500);
         }
     }
 

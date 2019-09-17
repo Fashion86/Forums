@@ -47,7 +47,7 @@ const MENUITEMS = [
         type: 'extLink'
     },
     {
-        state: 'forum/ragbi',
+        state: 'forum/rugby',
         name: 'Rugby',
         type: 'extLink'
     },

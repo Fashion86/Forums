@@ -1,0 +1,31 @@
+  <mat-card>
+    <mat-card-header class="bg-header text-black">
+
+      <mat-card-title>
+        Contact Us
+      </mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div fxFlex.gt-sm="100" fxFlex="100">
+                <div>
+                  ffffffffffffffff
+                </div>
+                <div style="text-align: center">
+                  <re-captcha class="captchaRef" (captchaResponse)="resolved($event)"
+                              site_key="6LcC0FEUAAAAAGTwUL8GCU8b0_i8z03dv3NpwFcJ"
+                              style="-moz-transform:scale(0.77); -ms-transform:scale(0.77);
+                               -o-transform:scale(0.77); -moz-transform-origin:0; -ms-transform-origin:0;
+                                -o-transform-origin:0; -webkit-transform:scale(0.77); transform:scale(0.77);
+                                 -webkit-transform-origin:0 0; transform-origin:0;
+                                 filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.77,M12=0,M21=0,M22=0.77,SizingMethod='auto expand');"></re-captcha>
+                </div>
+                <div style="text-align: center; margin-left: -65px;">
+                  <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="Send Message"
+                          [disabled]="!checkBot">
+                    Send Message
+                  </button>
+                </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

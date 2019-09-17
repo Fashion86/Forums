@@ -58,6 +58,10 @@ export class AppHeaderComponent {
     this.router.navigate(['/authentication/login']);
   }
 
+  onContactUs() {
+    this.router.navigate(['/forum/contact-us']);
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');

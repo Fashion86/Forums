@@ -11,7 +11,8 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RatingModule } from 'ng-starrating';
-
+import { ReCaptchaModule } from 'angular2-recaptcha';
+import { QuillModule } from 'ngx-quill';
 import { ForumRoutes } from './forum.routing';
 
 import { FootballComponent } from './football/football.component';
@@ -22,9 +23,11 @@ import { DemoMaterialModule } from '../demo-material-module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UsersComponent } from './users/users.component';
 import { TopicComponent } from './topic/topic.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent],
+  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent],
   imports: [
       CommonModule,
       RouterModule.forChild(ForumRoutes),
@@ -38,7 +41,9 @@ import { TopicComponent } from './topic/topic.component';
       ReactiveFormsModule,
       DemoMaterialModule,
       NgxDatatableModule,
-      RatingModule
+      RatingModule,
+      ReCaptchaModule,
+      QuillModule
   ]
 })
 export class ForumModule { }
