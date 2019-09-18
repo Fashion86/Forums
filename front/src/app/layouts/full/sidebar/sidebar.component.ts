@@ -44,7 +44,7 @@ export class AppSidebarComponent implements OnDestroy {
             name: 'Users',
           type: 'extLink'
       };
-      this.sidemenus.unshift(usermenu);
+      this.sidemenus.push(usermenu);
     }
 
     this.mobileQuery = media.matchMedia('(min-width: 768px)');

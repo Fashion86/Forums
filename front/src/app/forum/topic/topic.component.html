@@ -6,26 +6,26 @@
 
             <form [formGroup]="tagFormGroup" (ngSubmit)="onSubmit()">
               <div fxLayout="row wrap">
-                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                  <mat-form-field class="example-chip-list">
-                  <mat-chip-list #chipList formArrayName="tags">
-                    <mat-chip
-                        *ngFor="let name of tagFormGroup.get('tags')['controls']; let i=index;"
-                        [selectable]="selectable"
-                        [removable]="removable"
-                        (removed)="remove(tagFormGroup, i)">
-                      {{name.value}}
-                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="Tags"
-                           [matChipInputFor]="chipList"
-                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                           [matChipInputAddOnBlur]="addOnBlur"
-                           (matChipInputTokenEnd)="add($event, tagFormGroup)">
-                  </mat-chip-list>
-                  <mat-error>Atleast 1 tag need to be added</mat-error>
-                </mat-form-field>
-                </div>
+                <!--<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">-->
+                  <!--<mat-form-field class="example-chip-list">-->
+                  <!--<mat-chip-list #chipList formArrayName="tags">-->
+                    <!--<mat-chip-->
+                        <!--*ngFor="let name of tagFormGroup.get('tags')['controls']; let i=index;"-->
+                        <!--[selectable]="selectable"-->
+                        <!--[removable]="removable"-->
+                        <!--(removed)="remove(tagFormGroup, i)">-->
+                      <!--{{name.value}}-->
+                      <!--<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>-->
+                    <!--</mat-chip>-->
+                    <!--<input placeholder="Tags"-->
+                           <!--[matChipInputFor]="chipList"-->
+                           <!--[matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+                           <!--[matChipInputAddOnBlur]="addOnBlur"-->
+                           <!--(matChipInputTokenEnd)="add($event, tagFormGroup)">-->
+                  <!--</mat-chip-list>-->
+                  <!--<mat-error>Atleast 1 tag need to be added</mat-error>-->
+                <!--</mat-form-field>-->
+                <!--</div>-->
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                   <mat-form-field>
                     <input matInput type="text" placeholder="Title" [formControl]="tagFormGroup.controls['title']">

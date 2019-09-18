@@ -22,7 +22,7 @@ export class TopicComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  category = null;
+  category = 1;
   @ViewChild('chipList') chipList: MatChipList;
   constructor(private router: Router, private _formBuilder: FormBuilder,
               private _postService: PostService,
@@ -30,26 +30,26 @@ export class TopicComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url === '/forum/football/topic') {
-      this.category = 'football';
+      this.category = 1;
     } else if (this.router.url === '/forum/cricket/topic') {
-      this.category = 'cricket';
+      this.category = 2;
     } else if (this.router.url === '/forum/tennis/topic') {
-      this.category = 'tennis';
+      this.category = 3;
     } else if (this.router.url === '/forum/rugby/topic') {
-      this.category = 'rugby';
+      this.category = 4;
     }
     this.user = JSON.parse(localStorage.getItem('profile'));
     if (!this.user) {
       this.router.navigate(['/authentication/login']);
     }
     this.tagFormGroup = this._formBuilder.group({
-      tags: this._formBuilder.array(this.tags.names, this.validateArrayNotEmpty),
+      // tags: this._formBuilder.array(this.tags.names, this.validateArrayNotEmpty),
       title: [null, Validators.compose([Validators.required])],
       content: [null, Validators.compose([Validators.required, Validators.minLength(30)])]
     });
-    this.tagFormGroup.get('tags').statusChanges.subscribe(
-        status => this.chipList.errorState = status === 'INVALID'
-    );
+    // this.tagFormGroup.get('tags').statusChanges.subscribe(
+    //     status => this.chipList.errorState = status === 'INVALID'
+    // );
   }
 
   validateArrayNotEmpty(c: FormControl) {
@@ -87,20 +87,30 @@ export class TopicComponent implements OnInit {
 
   onSubmit() {
     const formdata = {
-      category: this.category,
-      tags: this.tagFormGroup.controls['tags'].value,
+      // tags: this.tagFormGroup.controls['tags'].value,
       title: this.tagFormGroup.controls['title'].value,
-      content: this.tagFormGroup.controls['content'].value
+      content: this.tagFormGroup.controls['content'].value,
+      category_id: this.category,
+      user_id: this.user.id
     };
     this._postService.addTopic(formdata)
         .subscribe(
-            data => {
-              this.snackBar.open('Success Deleted!', 'Close', {
+            res => {
+              this.snackBar.open('Success Added!', 'Close', {
                 duration: 5000,
                 panelClass: 'blue-snackbar'
               });
+              if (this.category === 1) {
+                this.router.navigate(['/forum/football']);
+              } else if (this.category === 2) {
+                this.router.navigate(['/forum/cricket']);
+              } else if (this.category === 3) {
+                this.router.navigate(['/forum/tennis']);
+              } else if (this.category === 4) {
+                this.router.navigate(['/forum/rugby']);
+              }
             }, error => {
-              this.snackBar.open('Error Delete!', 'Close', {
+              this.snackBar.open('Error Added!', 'Close', {
                 duration: 5000,
                 panelClass: 'blue-snackbar'
               });

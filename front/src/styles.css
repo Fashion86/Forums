@@ -55,3 +55,6 @@ a {
     padding: 10px !important;
     overflow: hidden !important;
 }
+.mat-ink-bar, .blue .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    height: 3px !important;
+}

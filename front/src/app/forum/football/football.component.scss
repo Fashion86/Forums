@@ -1,5 +1,5 @@
 :host {
-  margin: -6px -5px;
+  //margin: -6px -5px;
   display: block;
 }
 
@@ -135,4 +135,10 @@
     font-size: 12px;
   }
 }
-
+.online-status {
+  width: 10px;
+  margin-right: 5px;
+}
+.mat-column-option {
+  flex: 0 0 30px;
+}

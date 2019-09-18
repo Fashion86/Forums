@@ -10,9 +10,17 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsers() {
+  public getTopics(category) {
     return this.http
-        .get(Constants.API_URL + '/api/getUsers', this.jwt())
+        .get(Constants.API_URL + '/api/topics/' + category)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
+  public getTopic(id) {
+    return this.http
+        .get(Constants.API_URL + '/api/topic/' + id)
         .pipe(
             map((response: Response) => response)
         );
@@ -21,6 +29,14 @@ export class PostService {
   public addTopic(data) {
     return this.http
         .post(Constants.API_URL + '/api/topic', data, this.jwt())
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
+  public addPost(data) {
+    return this.http
+        .post(Constants.API_URL + '/api/post', data, this.jwt())
         .pipe(
             map((response: Response) => response)
         );

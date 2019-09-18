@@ -9,12 +9,8 @@ class Category extends Model
     protected $fillable = [
         'name', 'id'
     ];
-    public function events()
+    public function discussions()
     {
-        return $this->hasMany(Event::class);
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Discussion::class);
     }
 }

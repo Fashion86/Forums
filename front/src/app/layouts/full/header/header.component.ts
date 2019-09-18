@@ -65,7 +65,9 @@ export class AppHeaderComponent {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
+    // this.router.navigate(['/forum']);
     window.location.reload();
+
     // this.user = JSON.parse(localStorage.getItem('profile'));
     // this._authService.logout()
     //     .subscribe(

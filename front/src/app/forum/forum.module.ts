@@ -25,9 +25,10 @@ import { UsersComponent } from './users/users.component';
 import { TopicComponent } from './topic/topic.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
-  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent],
+  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent],
   imports: [
       CommonModule,
       RouterModule.forChild(ForumRoutes),
