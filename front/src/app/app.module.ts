@@ -50,8 +50,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     SharedModule,
     NgMultiSelectDropDownModule.forRoot(),
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes, {onSameUrlNavigation: 'reload'}),
+    // RouterModule.forRoot(AppRoutes, { useHash: false })
   ],
+  exports: [RouterModule],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

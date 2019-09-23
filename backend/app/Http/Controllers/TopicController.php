@@ -100,4 +100,8 @@ class TopicController extends Controller
             return response()->json(['error'=>$e], 500);
         }
     }
+
+    public function sendToContact(Request $request) {
+        return response()->json(['success'=>true]);
+    }
 }

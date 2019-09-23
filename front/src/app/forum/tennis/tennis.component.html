@@ -1,3 +1,92 @@
-<p>
-  tennis works!
-</p>
+<div class="preloader" *ngIf="isSpinnerVisible">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+<mat-card>
+  <mat-card-header class="bg-header text-black">
+
+    <mat-card-title>
+      Tennis
+    </mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card>
+        <mat-tab-group>
+          <!-- Tab 1 -->
+          <mat-tab label="Forum">
+            <mat-card-content>
+              <div class="table-responsive">
+                <div class="top-header">
+                  <button mat-flat-button color="primary" class="btn pull-right" (click)="onCreateTopic()">Create Topic</button>
+                  <mat-paginator [length]="totalCount"
+                                 [pageSize]="pageSize"
+                                 [pageIndex]="pageIndex"
+                                 [pageSizeOptions]="[30, 50, 100]"
+                                 (page)="setPage($event)">
+                  </mat-paginator>
+                </div>
+                <div *ngIf="forums.length < 1" style="text-align: center">there is no any Topic yet</div>
+                <mat-table #table *ngIf="forums.length > 0" [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Topics: {{forums.length}}</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <a [routerLink]="['/forum/tennis/post', {topic: element.id}]" style="color: #2789CE; font-weight: 500" > {{ element.title }} </a>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="author">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Author</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <img src="assets/images/online.png" alt="user" class="online-status">
+                      <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif"> {{ element.username }} </a>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="posts">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Posts</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <span *ngIf="element.posts.length > 0">{{element.posts.length}}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="latest">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Latest Posts</span> </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'short'}}, by {{element.posts[0].username}}</a>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="option">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <a *ngIf="user?.role === 'admin'" class="option-edit" (click)="$event.stopPropagation();deleteData(element)"
+                         matTooltip="Delete Topic">
+                        <mat-icon style="color: #e42b17">delete_forever</mat-icon>
+                      </a>
+                    </mat-cell>
+
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <div class="top-header">
+                  <mat-paginator [length]="totalCount"
+                                 [pageSize]="pageSize"
+                                 [pageIndex]="pageIndex"
+                                 [pageSizeOptions]="[30, 50, 100]"
+                                 (page)="setPage($event)">
+                  </mat-paginator>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

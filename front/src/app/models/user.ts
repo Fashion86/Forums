@@ -12,5 +12,7 @@ export class User {
   password: string;
   discussions_count: number;
   comments_count: number;
-  role: any[];
+  role: string;
+  created_at: any;
+  updated_at: any;
 }

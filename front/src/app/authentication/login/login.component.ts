@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
               if (data['success']) {
                 localStorage.setItem('token', data['token']);
                 localStorage.setItem('profile', JSON.stringify(data['user']));
-                // this.router.navigate(['/forum/football'] );
-                this.goBack();
+                this.router.navigate(['/forum'] );
+                // this.goBack();
               } else {
 
               }

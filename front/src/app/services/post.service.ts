@@ -49,6 +49,15 @@ export class PostService {
             map((response: Response) => response)
         );
   }
+
+  public sendToContact(data) {
+    return this.http
+        .post(Constants.API_URL + '/api/contact', data)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   private jwt() {
     if (localStorage.getItem("token")) {
       const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));

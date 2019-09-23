@@ -35,11 +35,11 @@ class Post extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')->onDelete('cascade');
 
             $table->foreign('discussion_id')
                 ->references('id')
-                ->on('discussions');
+                ->on('discussions')->onDelete('cascade');
         });
     }
 

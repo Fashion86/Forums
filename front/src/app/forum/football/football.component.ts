@@ -13,6 +13,7 @@ import {ConfirmDlgComponent} from "../confirm-dlg/confirm-dlg.component";
 })
 export class FootballComponent implements OnInit {
 
+  isSpinnerVisible = true;
   user: any;
   forums: any[] = [];
   columns = [{ prop: 'title' }, { name: 'content' }];
@@ -20,7 +21,7 @@ export class FootballComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns = ['title', 'author', 'posts', 'content', 'option'];
+  displayedColumns = ['title', 'author', 'posts', 'latest', 'option'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
@@ -45,11 +46,13 @@ export class FootballComponent implements OnInit {
   private getDatas( page = null): void {
     this._postService.getTopics('football')
         .subscribe(data => {
+          this.isSpinnerVisible = false;
           this.forums = data['data'];
           this.dataSource = new MatTableDataSource(this.forums);
           this.dataSource.sort = this.sort;
           this.forums = [...this.forums];
         }, error => {
+          this.isSpinnerVisible = false;
           console.log('Error get topic', error);
         });
   }

@@ -7,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  forums: any[];
+  forums: any[] = [];
+  football_forums: any[];
+  criket_forums: any[];
+  tennis_forums: any[];
+  rugby_forums: any[];
   constructor() {
-    this.forums = [{title: 'Hi! it is test problem', content: 'this is test1'}, {title: 'test3', content: 'this is test3'},
-      {title: 'Hi! it is second test problem', content: 'this is test1 polpolpol!!!'}, {title: 'test5', content: 'this is test1'}];
+
   }
 
   ngOnInit() {

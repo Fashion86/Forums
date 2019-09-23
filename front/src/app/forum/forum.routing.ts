@@ -17,6 +17,7 @@ export const ForumRoutes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        pathMatch: 'full'
       },
       {
         path: 'users',
@@ -58,11 +59,37 @@ export const ForumRoutes: Routes = [
       },
       {
         path: 'tennis',
-        component: TennisComponent
+        children: [
+          {
+            path: '',
+            component: TennisComponent
+          },
+          {
+            path: 'topic',
+            component: TopicComponent
+          },
+          {
+            path: 'post',
+            component: PostComponent
+          }
+        ]
       },
       {
         path: 'rugby',
-        component: RagbiComponent
+        children: [
+          {
+            path: '',
+            component: RagbiComponent
+          },
+          {
+            path: 'topic',
+            component: TopicComponent
+          },
+          {
+            path: 'post',
+            component: PostComponent
+          }
+        ]
       },
       {
         path: 'contact-us',
