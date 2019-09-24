@@ -9,6 +9,7 @@ import { TopicComponent } from './topic/topic.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const ForumRoutes: Routes = [
   {
@@ -21,7 +22,16 @@ export const ForumRoutes: Routes = [
       },
       {
         path: 'users',
-        component: UsersComponent
+        children: [
+          {
+            path: '',
+            component: UsersComponent
+          },
+          {
+            path: ':id',
+            component: ProfileComponent
+          }
+        ]
       },
       {
         path: 'football',

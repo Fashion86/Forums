@@ -18,6 +18,14 @@ export class PostService {
         );
   }
 
+  public getLatestTopics() {
+    return this.http
+        .get(Constants.API_URL + '/api/latesttopics')
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   public getTopic(id) {
     return this.http
         .get(Constants.API_URL + '/api/topic/' + id)

@@ -42,7 +42,8 @@
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Author</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
                       <img src="assets/images/online.png" alt="user" class="online-status">
-                      <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif"> {{ element.username }} </a>
+                      <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif"
+                         (click)="goToUser(element)"> {{ element.username }} </a>
                     </mat-cell>
                   </ng-container>
 
@@ -56,7 +57,7 @@
                   <ng-container matColumnDef="latest">
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Latest Posts</span> </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                      <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'short'}}, by {{element.posts[0].username}}</a>
+                      <a [routerLink]="['/forum/cricket/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'short'}}, by {{element.posts[0].username}}</a>
                     </mat-cell>
                   </ng-container>
 

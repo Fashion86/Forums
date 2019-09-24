@@ -19,6 +19,14 @@ export class UsersService {
         );
   }
 
+  public getUserById(id) {
+    return this.http
+        .get(Constants.API_URL + '/api/getUser/' + id, this.jwt())
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   activeUser(userId, status) {
     let is_activated = 1;
     if (!status) {

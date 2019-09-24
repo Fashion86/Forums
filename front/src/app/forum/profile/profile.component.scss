@@ -14,10 +14,11 @@
     margin-left: 10px;
   }
 }
+
 :host /deep/ .mat-card-header {
   padding: 4px !important;
 }
-:host /deep/ .mat-card .mat-card-content {
+:host /deep/ .mat-card {
   padding: 0 !important;
 }
 
@@ -149,3 +150,10 @@
   }
 }
 
+.card-content {
+  padding: 20px !important;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  .header {
+    //background: #fff8ec;
+  }
+}

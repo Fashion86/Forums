@@ -1,0 +1,38 @@
+<div class="preloader" *ngIf="isSpinnerVisible">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+<mat-card>
+  <mat-card-header class="bg-header text-black">
+
+    <mat-card-title>
+      {{user.username}}
+    </mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content style="padding: 0">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card  style="margin: 0">
+        <mat-tab-group [ngStyle]="{'min-height': height + 'px'}">
+          <!-- Tab 1 -->
+          <mat-tab label="Over View">
+            <mat-card-content class="card-content">
+              <div class="header">
+                <span>Latest Activity</span>
+              </div>
+            </mat-card-content>
+          </mat-tab>
+           <!--End Tab 1 -->
+           <!--Tab 2 -->
+          <mat-tab label="About Me">
+            <mat-card-content class="card-content">
+              Name: {{user.username}}
+            </mat-card-content>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

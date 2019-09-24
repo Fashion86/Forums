@@ -102,4 +102,8 @@ export class TennisComponent implements OnInit {
   onCreateTopic() {
     this.router.navigate(['/forum/tennis/topic']);
   }
+
+  goToUser(data) {
+    this.router.navigate(['/forum/users/' + data.user_id]);
+  }
 }

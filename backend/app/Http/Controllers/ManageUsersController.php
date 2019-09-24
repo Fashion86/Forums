@@ -194,24 +194,18 @@ class ManageUsersController extends Controller
         }
     }
 
-    public function getUserByID() {
-        $userId = Input::get('userId') != null ? Input::get('userId') : 1;
-        $user = User::where('id', $userId)->first();
-        $datas = [];
-        if ($user != null) {
-            $role_ids = DB::table('model_has_roles')->where('model_id', $userId)->get();
-            if ($role_ids != null) {
-                $user->role_ids = [];
-                foreach ($role_ids as $role_id) {
-                    array_push($datas, $role_id->role_id);
-                }
-                $user->role_ids = $datas;
-            } else {
-                $user->roles = [];
+    public function getUserByID($id) {
+        try {
+            $user = User::find($id);
+            $posts = DB::table('posts')
+                ->where('posts.user_id', $id)
+                ->orderBy('posts.created_at', 'desc')
+                ->get();
+            $user->posts = $posts;
+            return response()->json(['success'=>true, 'data'=>$user], 201);
             }
-            return response()->json(['userdata' => $user], 200);
-        } else {
-            return response()->json(['error' => 'No user with this id: '.$userId], 404);
+        catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
         }
     }
 

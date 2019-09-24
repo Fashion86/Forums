@@ -9,9 +9,18 @@
 
       </mat-card-header>
       <mat-card-content class="big-content">
-        <div fxFlex.gt-sm="100" fxFlex="100">
-
-          there is no any Topic yet
+        <div *ngIf="big_posts_forums.length < 1" fxFlex.gt-sm="100" fxFlex="100">
+          there is no any Post yet
+        </div>
+        <div *ngIf="big_posts_forums.length > 0" fxFlex.gt-sm="100" fxFlex="100">
+          <mat-card-content>
+            <div fxLayout="row wrap">
+              <div *ngFor="let forum of big_posts_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                <p><a>{{forum.title}}</a></p>
+                <span [innerHtml]="forum.content"></span>
+              </div>
+            </div>
+          </mat-card-content>
         </div>
       </mat-card-content>
     </mat-card>
@@ -27,50 +36,73 @@
         <div fxFlex.gt-sm="100" fxFlex="100">
           <mat-card>
             <!--// football-->
-            <mat-card-header>
-              <mat-card-title style="margin-left: 3px; display: flex;">
-                <img src="assets/images/football.jpg" alt="football" style="width: 30px">
-                <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Foot Ball</span>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div fxLayout="row wrap">
-                <div *ngFor="let forum of forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                  <p><a>{{forum.title}}</a></p>
-                  <span>{{forum.content}}</span>
+            <div *ngIf="football_forums.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <img src="assets/images/football.jpg" alt="football" style="width: 30px">
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Foot Ball</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let forum of football_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <p><a>{{forum.title}}</a></p>
+                    <span [innerHtml]="forum.content"></span>
+                  </div>
                 </div>
-              </div>
-            </mat-card-content>
+              </mat-card-content>
+            </div>
             <!--// Cricket-->
-            <mat-card-header>
-              <mat-card-title style="margin-left: 3px; display: flex;">
-                <img src="assets/images/cricket.jpg" alt="football" style="width: 30px">
-                <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Cricket</span>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div fxLayout="row wrap">
-                <div *ngFor="let forum of forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                  <p><a>{{forum.title}}</a></p>
-                  <span>{{forum.content}}</span>
+            <div *ngIf="criket_forums.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <img src="assets/images/cricket.jpg" alt="football" style="width: 30px">
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Cricket</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let forum of criket_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <p><a>{{forum.title}}</a></p>
+                    <span [innerHtml]="forum.content"></span>
+                  </div>
                 </div>
-              </div>
-            </mat-card-content>
+              </mat-card-content>
+            </div>
             <!--// Tennis-->
-            <mat-card-header>
-              <mat-card-title style="margin-left: 3px; display: flex;">
-                <img src="assets/images/tennis.jpg" alt="football" style="width: 30px">
-                <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Tennis</span>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div fxLayout="row wrap">
-                <div *ngFor="let forum of forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                  <p><a>{{forum.title}}</a></p>
-                  <span>{{forum.content}}</span>
+            <div *ngIf="tennis_forums.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <img src="assets/images/tennis.jpg" alt="football" style="width: 30px">
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Tennis</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let forum of tennis_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <p><a>{{forum.title}}</a></p>
+                    <span [innerHtml]="forum.content"></span>
+                  </div>
                 </div>
-              </div>
-            </mat-card-content>
+              </mat-card-content>
+            </div>
+            <!--// Rugby-->
+            <div *ngIf="rugby_forums.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <img src="assets/images/tennis.jpg" alt="football" style="width: 30px">
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Rugby</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let forum of rugby_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <p><a>{{forum.title}}</a></p>
+                    <span [innerHtml]="forum.content"></span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </div>
           </mat-card>
         </div>
       </mat-card-content>

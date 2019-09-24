@@ -102,4 +102,8 @@ export class RagbiComponent implements OnInit {
   onCreateTopic() {
     this.router.navigate(['/forum/rugby/topic']);
   }
+
+  goToUser(data) {
+    this.router.navigate(['/forum/users/' + data.user_id]);
+  }
 }

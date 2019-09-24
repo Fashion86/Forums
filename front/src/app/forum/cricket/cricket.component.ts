@@ -102,4 +102,8 @@ export class CricketComponent implements OnInit {
   onCreateTopic() {
     this.router.navigate(['/forum/cricket/topic']);
   }
+
+  goToUser(data) {
+    this.router.navigate(['/forum/users/' + data.user_id]);
+  }
 }

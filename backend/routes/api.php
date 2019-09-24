@@ -36,6 +36,7 @@ Route::group([
     Route::post('topic', 'TopicController@addTopic');
     Route::get('topic/{id}', 'TopicController@getTopicById');
     Route::get('topics/{category}', 'TopicController@getTopics');
+    Route::get('latesttopics', 'TopicController@getLatestTopics');
     Route::delete('topic/{id}', 'TopicController@deleteTopic');
     Route::post('contact', 'TopicController@sendToContact');
 
@@ -46,7 +47,8 @@ Route::group([
 
     Route::get('getRoleNames', 'ManageUsersController@getRoleNames');
     Route::get('getUsers', 'ManageUsersController@getUsers');
-    Route::get('getUser', 'ManageUsersController@getUserByID');
+    Route::get('getUser/{id}', 'ManageUsersController@getUserByID');
+
     Route::post('addPermission', 'ManageUsersController@addPermission');
     Route::post('updatePermission', 'ManageUsersController@updatePermission');
     Route::post('deletePermission', 'ManageUsersController@deletePermission');

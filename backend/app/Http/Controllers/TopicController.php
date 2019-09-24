@@ -67,6 +67,62 @@ class TopicController extends Controller
 
     }
 
+    public function getLatestTopics() {
+        try {
+            $football_topics = DB::table('discussions')
+                ->join('users', 'discussions.user_id', '=', 'users.id')
+                ->select('discussions.*', 'users.username')
+                ->where('discussions.category_id', '1')
+                ->orderBy('discussions.created_at', 'desc')
+                ->limit(3)
+                ->get();
+            $cricket_topics = DB::table('discussions')
+                ->join('users', 'discussions.user_id', '=', 'users.id')
+                ->select('discussions.*', 'users.username')
+                ->where('discussions.category_id', 2)
+                ->orderBy('discussions.created_at', 'desc')
+                ->limit(3)
+                ->get();
+            $tennis_topics = DB::table('discussions')
+                ->join('users', 'discussions.user_id', '=', 'users.id')
+                ->select('discussions.*', 'users.username')
+                ->where('discussions.category_id', 3)
+                ->orderBy('discussions.created_at', 'desc')
+                ->limit(3)
+                ->get();
+            $rugby_topics = DB::table('discussions')
+                ->join('users', 'discussions.user_id', '=', 'users.id')
+                ->select('discussions.*', 'users.username')
+                ->where('discussions.category_id', 4)
+                ->orderBy('discussions.created_at', 'desc')
+                ->limit(3)
+                ->get();
+
+            $big_topic_ids = DB::table('discussions')
+                ->join('posts', 'discussions.id', '=', 'posts.discussion_id')
+                ->select('discussions.id', DB::raw("count(posts.discussion_id) as count"))
+                ->groupBy('discussions.id')
+                ->orderBy('count', 'desc')
+                ->limit(2)
+                ->get();
+            $big_topics = array();
+            foreach ($big_topic_ids as $topic) {
+                $bigtopic = DB::table('discussions')
+                    ->join('users', 'discussions.user_id', '=', 'users.id')
+                    ->select('discussions.*', 'users.username')
+                    ->where('discussions.id', $topic->id)
+                    ->first();
+                $big_topics[] = $bigtopic;
+            }
+
+            return response()->json(['success'=>true, 'football'=>$football_topics, 'cricket'=>$cricket_topics,
+                'tennis'=>$tennis_topics, 'rugby'=>$rugby_topics, 'big'=>$big_topics], 201);
+        } catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
+        }
+
+    }
+
     public function getTopicById($id) {
         try {
 //            $topic = DB::table('discussions')
