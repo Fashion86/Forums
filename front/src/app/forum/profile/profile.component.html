@@ -21,6 +21,9 @@
             <mat-card-content class="card-content">
               <div class="header">
                 <span>Latest Activity</span>
+                <div class="activity">
+
+                </div>
               </div>
             </mat-card-content>
           </mat-tab>
@@ -28,7 +31,10 @@
            <!--Tab 2 -->
           <mat-tab label="About Me">
             <mat-card-content class="card-content">
-              Name: {{user.username}}
+              <div class="aboutme">
+                <span>Name:  {{user.username}}</span>
+                <span>Email:  {{user.email}}</span>
+              </div>
             </mat-card-content>
           </mat-tab>
         </mat-tab-group>

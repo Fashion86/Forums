@@ -151,9 +151,20 @@
 }
 
 .card-content {
-  padding: 20px !important;
+  //padding: 20px !important;
   font-family: Tahoma, Verdana, Arial, sans-serif;
   .header {
-    //background: #fff8ec;
+    .activity {
+      min-height: 500px;
+      background: #E9EBEC ;
+      border-radius: 3px;
+      border: 1px solid #ccd2d6;
+    }
+  }
+}
+.aboutme {
+  display: grid;
+  span{
+    padding: 5px;
   }
 }

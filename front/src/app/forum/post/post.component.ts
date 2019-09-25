@@ -106,4 +106,8 @@ export class PostComponent implements OnInit {
   onPlay(flag) {
     this.play = flag;
   }
+
+  goToUser(data) {
+    this.router.navigate(['/forum/users/' + data.user_id]);
+  }
 }

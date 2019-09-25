@@ -29,7 +29,7 @@
                       <img src="assets/images/man.png" alt="football" style="width: 35px">
                       <div style="display: grid">
                         <div class="user-info">
-                          <a style="margin: 3px 5px;">{{topic.user?.username}}</a>
+                          <a (click)="goToUser(topic)" style="margin: 3px 5px;">{{topic.user?.username}}</a>
                           <span style="color: #161725;">{{topic.created_at | date: 'mediumDate'}}</span>
                         </div>
                         <div class="user-info botom">
@@ -65,7 +65,7 @@
                   </div>
                   <div class="body">
                     <div *ngFor="let post of topic.posts; let i = index">
-                      <a>{{post.username}}</a>
+                      <a (click)="goToUser(post)">{{post.username}}</a>
                       <span style="color: #576065de;"> - {{post.created_at | date: 'medium'}}</span>
                       <span class="" [innerHtml]="post.content">
                       </span>
