@@ -21,6 +21,7 @@ export class PostComponent implements OnInit {
   totalCount: number;
   pageIndex: number;
   pageSize: number;
+  play = true;
   constructor(private router: Router,
               private route: ActivatedRoute,
               private _postService: PostService,
@@ -100,5 +101,9 @@ export class PostComponent implements OnInit {
   setPageData(pageIndex, pageSize) {
     // this.forums = _.orderBy(this.reports, [this.sortName], [this.sortDirection]);
     // this.dataSource.data = this.forums.slice(pageIndex * pageSize, pageIndex * pageSize + pageSize);
+  }
+
+  onPlay(flag) {
+    this.play = flag;
   }
 }

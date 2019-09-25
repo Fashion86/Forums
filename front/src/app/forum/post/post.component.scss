@@ -106,10 +106,19 @@ a:hover {
     background: #efefef;
     border-bottom: 1px solid #cccccc;
     color: #576065;
+    display: flex;
+    justify-content: space-between;
+    font: 12px Tahoma, Arial, sans-serif;
+    font-weight: bold;
     span{
       margin-left: 10px;
-      font: 12px Tahoma, Arial, sans-serif;
-      font-weight: bold;
+    }
+    a {
+      margin-right: 10px;
+      color: #576065 !important;
+    }
+    a:hover {
+      cursor: pointer;
     }
   }
   .body {

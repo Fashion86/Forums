@@ -54,7 +54,14 @@
                 <div class="post-content">
                   <div class="header">
                       <span>{{topic.title | uppercase}}</span>
-                      <!--<a style="margin: 3px 5px;">{{topic.user?.username}}</a>-->
+                    <a *ngIf="play" (click)="onPlay(false)">
+                      <span>Pause</span>
+                      <img src="assets/images/chat-pause.png" alt="pause" style="width: 16px">
+                    </a>
+                    <a *ngIf="!play" (click)="onPlay(true)">
+                      <span>play</span>
+                      <img src="assets/images/chat-play.png" alt="play" style="width: 16px">
+                    </a>
                   </div>
                   <div class="body">
                     <div *ngFor="let post of topic.posts; let i = index">

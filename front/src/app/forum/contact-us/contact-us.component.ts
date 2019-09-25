@@ -48,13 +48,13 @@ export class ContactUsComponent implements OnInit {
                 duration: 5000,
                 panelClass: 'blue-snackbar'
               });
-              this.checkBot = false;
+              // this.checkBot = false;
             }, error => {
               this.snackBar.open('Error Sent!', 'Close', {
                 duration: 5000,
                 panelClass: 'blue-snackbar'
               });
-              this.checkBot = false;
+              // this.checkBot = false;
             });
   }
 }
