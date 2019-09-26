@@ -19,7 +19,7 @@
 
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <mat-form-field>
-              <input matInput placeholder="Email" [formControl]="form.controls['email']">
+              <input matInput placeholder="Email" [formControl]="form.controls['email']" required>
             </mat-form-field>
             <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">Email is required.</small>
             <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">You must include a valid email address.</small>
@@ -27,14 +27,14 @@
           <!-- col full-->
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <mat-form-field>
-              <input matInput placeholder="Subject" [formControl]="form.controls['subject']">
+              <input matInput placeholder="Subject" [formControl]="form.controls['subject']" required>
             </mat-form-field>
             <small *ngIf="form.controls['subject'].hasError('required') && form.controls['subject'].touched" class="text-danger support-text">Subject is required.</small>
           </div>
 
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <mat-form-field>
-              <textarea matInput type="text" placeholder="Message" [formControl]="form.controls['content']"></textarea>
+              <textarea matInput type="text" placeholder="Message" [formControl]="form.controls['content']" required></textarea>
             </mat-form-field>
             <small *ngIf="form.controls['content'].hasError('required') && form.controls['content'].touched" class="text-danger support-text">Content is required.</small>
           </div>

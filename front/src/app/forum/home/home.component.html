@@ -16,7 +16,7 @@
           <mat-card-content>
             <div fxLayout="row wrap">
               <div *ngFor="let forum of big_posts_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                <p><a>{{forum.title}}</a></p>
+                <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                 <span [innerHtml]="forum.content"></span>
               </div>
             </div>
@@ -46,7 +46,7 @@
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let forum of football_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                    <p><a>{{forum.title}}</a></p>
+                    <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                     <span [innerHtml]="forum.content"></span>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let forum of criket_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                    <p><a>{{forum.title}}</a></p>
+                    <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                     <span [innerHtml]="forum.content"></span>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let forum of tennis_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                    <p><a>{{forum.title}}</a></p>
+                    <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                     <span [innerHtml]="forum.content"></span>
                   </div>
                 </div>
@@ -97,7 +97,7 @@
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let forum of rugby_forums" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
-                    <p><a>{{forum.title}}</a></p>
+                    <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                     <span [innerHtml]="forum.content"></span>
                   </div>
                 </div>

@@ -114,8 +114,14 @@ a:hover {
       margin-left: 10px;
     }
     a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-right: 10px;
       color: #576065 !important;
+      span{
+        padding-bottom: 3px;
+      }
     }
     a:hover {
       cursor: pointer;

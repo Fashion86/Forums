@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -9,6 +9,8 @@ import {
 import {AuthService} from '../../services/auth.service';
 import { CustomValidators } from 'ng2-validation';
 import { Location } from '@angular/common';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {ConfirmDlgComponent} from "../../forum/confirm-dlg/confirm-dlg.component";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,9 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
   errorStr = null;
   constructor(private fb: FormBuilder, private router: Router,
-              private _authService: AuthService, private location: Location) {}
+              private _authService: AuthService, private location: Location,
+              public dialogRef: MatDialogRef<LoginComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
     this.errorStr = null;
@@ -43,8 +47,9 @@ export class LoginComponent implements OnInit {
               if (data['success']) {
                 localStorage.setItem('token', data['token']);
                 localStorage.setItem('profile', JSON.stringify(data['user']));
-                this.router.navigate(['/forum'] );
-                // this.goBack();
+                // this.router.navigate(['/forum'] );
+                this.dialogRef.close(false);
+                window.location.reload();
               } else {
 
               }

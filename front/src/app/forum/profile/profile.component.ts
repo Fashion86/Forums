@@ -40,4 +40,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  goToTopic(data, id = null) {
+    const link = '/forum/' + data.category_name + '/post';
+    if (id) {
+      this.router.navigate([link, {topic: id}]);
+    } else {
+      this.router.navigate([link, {topic: data.id}]);
+    }
+  }
+
 }

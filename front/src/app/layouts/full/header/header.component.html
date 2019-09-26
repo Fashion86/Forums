@@ -77,7 +77,7 @@
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
-<div style="display: flex">
+<div style="display: flex; margin-right: 10px">
     <button mat-icon-button class="m-r-5" style="width: 100px;" (click)="onContactUs()">Contact Us </button>
     <div *ngIf="user">
         <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
@@ -95,6 +95,13 @@
     </div>
     <div *ngIf="!user">
         <button mat-icon-button class="m-r-5" (click)="onLogin()">Log In</button>
+        <span style="font-size: 14px; color: #27aae0">or</span>
+        <button mat-flat-button class="m-r-5" style="height: 25px;
+            padding: 0 5px;
+            line-height: normal;
+            margin-left: 5px;
+            color: white;
+            background: #27aae0;" (click)="onRegister()">Join Now</button>
     </div>
 </div>
 

@@ -58,3 +58,6 @@ a {
 .mat-ink-bar, .blue .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     height: 3px !important;
 }
+.mat-drawer-inner-container {
+    background: #e9ebec;
+}

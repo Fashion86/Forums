@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         .subscribe(
             data => {
                   if (data['success']) {
-                    this.router.navigate(['/authentication/login']);
+                    this.router.navigate(['/forum']);
                   } else {
 
                   }

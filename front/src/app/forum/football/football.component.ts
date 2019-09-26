@@ -21,7 +21,7 @@ export class FootballComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns = ['title', 'author', 'posts', 'latest', 'option'];
+  displayedColumns = ['title', 'author', 'posts', 'views', 'latest', 'option'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
@@ -100,7 +100,11 @@ export class FootballComponent implements OnInit {
     });
   }
   onCreateTopic() {
-    this.router.navigate(['/forum/football/topic']);
+    if (!this.user) {
+      this.router.navigate(['/authentication/login']);
+    } else {
+      this.router.navigate(['/forum/football/topic']);
+    }
   }
 
   goToUser(data) {

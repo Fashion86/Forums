@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {Router} from '@angular/router';
 import {AuthService} from "../../../services/auth.service";
+import { LoginComponent } from '../../../authentication/login/login.component';
+import {MatDialog} from "@angular/material";
+// import {ConfirmDlgComponent} from "../../../forum/confirm-dlg/confirm-dlg.component";
 
 @Component({
   selector: 'app-header',
@@ -44,7 +47,7 @@ export class AppHeaderComponent {
 
   user: any;
   constructor(
-      private router: Router, private _authService: AuthService
+      private router: Router, private _authService: AuthService, public dialog: MatDialog
   ) {
     this.user = JSON.parse(localStorage.getItem('profile'));
     // this.user.role.forEach(role => {
@@ -55,7 +58,17 @@ export class AppHeaderComponent {
   }
 
   onLogin() {
-    this.router.navigate(['/authentication/login']);
+    // this.router.navigate(['/authentication/login']);
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '450px',
+      height: '430px',
+      panelClass: 'custom-modalbox',
+      data: {msg: 'Are you sure delete it?'}
+    });
+
+  }
+  onRegister() {
+    this.router.navigate(['/authentication/register']);
   }
 
   onContactUs() {

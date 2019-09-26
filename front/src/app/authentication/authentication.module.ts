@@ -15,7 +15,7 @@ import { AuthenticationRoutes } from './authentication.routing';
 import { ErrorComponent } from './error/error.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { LockscreenComponent } from './lockscreen/lockscreen.component';
-import { LoginComponent } from './login/login.component';
+// import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({
@@ -35,7 +35,7 @@ import { RegisterComponent } from './register/register.component';
     ErrorComponent,
     ForgotComponent,
     LockscreenComponent,
-    LoginComponent,
+    // LoginComponent,
     RegisterComponent
   ]
 })

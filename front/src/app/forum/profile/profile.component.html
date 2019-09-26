@@ -22,7 +22,31 @@
               <div class="header">
                 <span>Latest Activity</span>
                 <div class="activity">
+                  <div class="data" *ngIf="user.topics?.length > 0">
+                    <div class="t-h">
+                      Topics
+                    </div>
+                    <div class="t-b" *ngFor="let topic of user.topics">
+                      <span>{{topic.created_at | date: 'mediumDate'}}</span>
+                      <div>
+                        <span><strong>{{user.username }}</strong> created a new thread
+                          <a (click)="goToTopic(topic)">{{topic.title}}</a></span>
+                      </div>
+                    </div>
 
+                  </div>
+                  <div class="data" *ngIf="user.posts?.length > 0">
+                    <div class="t-h">
+                      Posts
+                    </div>
+                    <div class="t-b" *ngFor="let post of user.posts">
+                      <span>{{post.created_at | date: 'mediumDate'}}</span>
+                      <div>
+                        <span><strong>{{user.username }}</strong> posted on forum
+                          <a (click)="goToTopic(post, post.discussion_id)">{{post.topic_name}}</a></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </mat-card-content>

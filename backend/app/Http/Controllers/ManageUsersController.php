@@ -198,10 +198,22 @@ class ManageUsersController extends Controller
         try {
             $user = User::find($id);
             $posts = DB::table('posts')
+                ->join('discussions', 'discussions.id', '=', 'posts.discussion_id')
+                ->join('categories', 'categories.id', '=', 'discussions.category_id')
+                ->select('posts.*', 'discussions.title as topic_name', 'categories.name as category_name')
                 ->where('posts.user_id', $id)
                 ->orderBy('posts.created_at', 'desc')
+                ->limit(3)
+                ->get();
+            $topics = DB::table('discussions')
+                ->join('categories', 'categories.id', '=', 'discussions.category_id')
+                ->select('discussions.*', 'categories.name as category_name')
+                ->where('discussions.user_id', $id)
+                ->orderBy('discussions.created_at', 'desc')
+                ->limit(3)
                 ->get();
             $user->posts = $posts;
+            $user->topics = $topics;
             return response()->json(['success'=>true, 'data'=>$user], 201);
             }
         catch(\Exception $e) {
