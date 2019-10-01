@@ -61,4 +61,9 @@ export class LoginComponent implements OnInit {
               }
             });
   }
+
+  onforgot() {
+    this.dialogRef.close(false);
+    this.router.navigate(['/authentication/forgot']);
+  }
 }
