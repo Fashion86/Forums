@@ -50,40 +50,75 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.spinner.show();
-    this.getLatestTopics();
-    if (this.router.url.length > 20) {
-      this.isSpinnerVisible = true;
-      // this.spinner.show();
-      this._usersService.verifyUserEmail(this.router.url)
-          .subscribe(res => {
-            this.spinner.hide();
-            if(res['success']) {
-              const dialogRef = this.dialog.open(LoginComponent, {
-                width: '450px',
-                height: '430px',
-                panelClass: 'custom-modalbox'
+    // this.route.params.subscribe(params => {
+      if (this.router.url === '/forum') {
+        // window.location.reload();
+      } else {
+        this.isSpinnerVisible = true;
+        // this.spinner.show();
+        this._usersService.verifyUserEmail(this.router.url)
+            .subscribe(res => {
+              this.spinner.hide();
+              if(res['success']) {
+                const dialogRef = this.dialog.open(LoginComponent, {
+                  width: '450px',
+                  height: '430px',
+                  panelClass: 'custom-modalbox'
+                });
+                dialogRef.afterClosed().subscribe(result => {
+                  if (result) {
+                    this.router.navigate(['/forum']);
+                  }
+                })
+              } else {
+
+              }
+              this.snackBar.open(res['msg'], 'Close', {
+                duration: 5000,
+                panelClass: 'blue-snackbar'
               });
-              dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                  this.router.navigate(['/forum']);
-                }
-              })
-            } else {
-
-            }
-            this.snackBar.open(res['msg'], 'Close', {
-              duration: 5000,
-              panelClass: 'blue-snackbar'
+              this.isSpinnerVisible = false;
+            }, error => {
+              this.spinner.hide();
+              this.isSpinnerVisible = false;
+              console.log('User email is wrong', error);
             });
-            this.isSpinnerVisible = false;
-          }, error => {
-            this.spinner.hide();
-            this.isSpinnerVisible = false;
-            console.log('User email is wrong', error);
-          });
+      }
+    // });
 
-    }
+    this.getLatestTopics();
+    // if (this.router.url.length > 20) {
+    //   this.isSpinnerVisible = true;
+    //   // this.spinner.show();
+    //   this._usersService.verifyUserEmail(this.router.url)
+    //       .subscribe(res => {
+    //         this.spinner.hide();
+    //         if(res['success']) {
+    //           const dialogRef = this.dialog.open(LoginComponent, {
+    //             width: '450px',
+    //             height: '430px',
+    //             panelClass: 'custom-modalbox'
+    //           });
+    //           dialogRef.afterClosed().subscribe(result => {
+    //             if (result) {
+    //               this.router.navigate(['/forum']);
+    //             }
+    //           })
+    //         } else {
+    //
+    //         }
+    //         this.snackBar.open(res['msg'], 'Close', {
+    //           duration: 5000,
+    //           panelClass: 'blue-snackbar'
+    //         });
+    //         this.isSpinnerVisible = false;
+    //       }, error => {
+    //         this.spinner.hide();
+    //         this.isSpinnerVisible = false;
+    //         console.log('User email is wrong', error);
+    //       });
+    //
+    // }
   }
 
 }

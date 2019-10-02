@@ -11,6 +11,8 @@ import {
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
+import {UsersService} from "../../../services/users.service";
+import {Subscription} from "rxjs/Subscription";
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -24,6 +26,7 @@ export class AppSidebarComponent implements OnDestroy {
   status: boolean = false;
   sidemenus: any[] = [];
   user: any;
+  subscription: Subscription;
   clickEvent() {
     this.status = !this.status;
   }
@@ -34,17 +37,34 @@ export class AppSidebarComponent implements OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private _usersService: UsersService,
     public menuItems: MenuItems
   ) {
     this.sidemenus = menuItems.getMenuitem();
     this.user = JSON.parse(localStorage.getItem('profile'));
-    if (this.user && this.user.role === 'admin') {
-      const usermenu =    {
-        state: 'forum/users',
-            name: 'Users',
+    this.subscription = this._usersService.getUser().subscribe(user => {
+      this.user = user;
+      const usermenu = this.sidemenus.find(m => m.name === 'Users');
+      if (!usermenu) {
+        const newmenu =    {
+          state: 'forum/users',
+          name: 'Users',
           type: 'extLink'
-      };
-      this.sidemenus.push(usermenu);
+        };
+        this.sidemenus.push(newmenu);
+      }
+    });
+    if (this.user && this.user.role === 'admin') {
+      const usermenu = this.sidemenus.find(m => m.name === 'Users');
+      if (!usermenu) {
+        const newmenu =    {
+          state: 'forum/users',
+          name: 'Users',
+          type: 'extLink'
+        };
+        this.sidemenus.push(newmenu);
+      }
+
     }
 
     this.mobileQuery = media.matchMedia('(min-width: 768px)');

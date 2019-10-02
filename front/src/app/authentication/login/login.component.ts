@@ -11,6 +11,7 @@ import { CustomValidators } from 'ng2-validation';
 import { Location } from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ConfirmDlgComponent} from "../../forum/confirm-dlg/confirm-dlg.component";
+import {UsersService} from "../../services/users.service";
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router,
               private _authService: AuthService, private location: Location,
               public dialogRef: MatDialogRef<LoginComponent>,
+              private _usersService: UsersService,
               @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
@@ -47,9 +49,8 @@ export class LoginComponent implements OnInit {
               if (data['success']) {
                 localStorage.setItem('token', data['token']);
                 localStorage.setItem('profile', JSON.stringify(data['user']));
-                // this.router.navigate(['/forum'] );
+                this._usersService.setUser(data['user']);
                 this.dialogRef.close(true);
-                window.location.reload();
               } else {
 
               }

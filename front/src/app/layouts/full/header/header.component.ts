@@ -4,7 +4,8 @@ import {Router} from '@angular/router';
 import {AuthService} from "../../../services/auth.service";
 import { LoginComponent } from '../../../authentication/login/login.component';
 import {MatDialog} from "@angular/material";
-// import {ConfirmDlgComponent} from "../../../forum/confirm-dlg/confirm-dlg.component";
+import { Subscription } from 'rxjs/Subscription';
+import {UsersService} from "../../../services/users.service";
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import {MatDialog} from "@angular/material";
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   // This is for Notifications
+  subscription: Subscription;
   notifications: Object[] = [
     {
       round: 'round-danger',
@@ -47,14 +49,14 @@ export class AppHeaderComponent {
 
   user: any;
   constructor(
-      private router: Router, private _authService: AuthService, public dialog: MatDialog
+      private router: Router, private _authService: AuthService,
+      public dialog: MatDialog,
+      private _usersService: UsersService
   ) {
     this.user = JSON.parse(localStorage.getItem('profile'));
-    // this.user.role.forEach(role => {
-    //   if (role.name === 'ROLE_ADMIN') {
-    //     this.isadmin = true;
-    //   }
-    // });
+    this.subscription = this._usersService.getUser().subscribe(user => {
+      this.user = user;
+    });
   }
 
   onLogin() {
@@ -64,6 +66,11 @@ export class AppHeaderComponent {
       height: '430px',
       panelClass: 'custom-modalbox',
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        window.location.reload();
+      }
+    })
 
   }
   onRegister() {

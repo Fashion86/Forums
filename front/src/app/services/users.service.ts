@@ -3,13 +3,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {User} from '../models/user';
 import * as Constants from '../app.const';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
+  user: User;
+  private subject = new Subject<any>();
   constructor(private http: HttpClient) { }
+
+  setUser(user: User) {
+    this.user = user;
+    this.subject.next(this.user);
+  }
+
+  getUser() {
+    return this.subject.asObservable();
+  }
 
   public getUsers() {
     return this.http
