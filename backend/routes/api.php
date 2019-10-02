@@ -48,6 +48,7 @@ Route::group([
     Route::get('getRoleNames', 'ManageUsersController@getRoleNames');
     Route::get('getUsers', 'ManageUsersController@getUsers');
     Route::get('getUser/{id}', 'ManageUsersController@getUserByID');
+    Route::get('forum/user/verify/{token}', 'AuthController@verifyUser');
 
     Route::post('addPermission', 'ManageUsersController@addPermission');
     Route::post('updatePermission', 'ManageUsersController@updatePermission');

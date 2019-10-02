@@ -27,6 +27,14 @@ export class UsersService {
         );
   }
 
+  public verifyUserEmail(path) {
+    return this.http
+        .get(Constants.API_URL + '/api' + path)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   activeUser(userId, status) {
     let is_activated = 1;
     if (!status) {

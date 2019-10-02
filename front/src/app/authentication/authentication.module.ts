@@ -17,6 +17,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { LockscreenComponent } from './lockscreen/lockscreen.component';
 // import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './register/register.component';
     MatButtonModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   declarations: [
     ErrorComponent,

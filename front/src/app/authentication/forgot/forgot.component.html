@@ -4,7 +4,9 @@
       <mat-card-content>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="text-center">
-            <img alt="homepage" class="logo-icon" src="assets/images/logo-icon.png">
+            <a [routerLink]="['/forum']">
+              <img alt="homepage" class="logo-icon" src="assets/images/logo-icon.png">
+            </a>
             <h4 class="m-t-0">Recover Password</h4>
           </div>
           <p class="text-center font-14">Enter your email and we'll send you the password reset link.</p>

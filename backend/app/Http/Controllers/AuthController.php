@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerifyMail;
+use App\VerifyUser;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -14,12 +17,25 @@ use Illuminate\Support\Facades\Auth;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
 
     public function registerUser(Request $request)
     {
+        $olduser = DB::table('users')
+            ->where('email', $request->get('email'))
+            ->first();
+        if ($olduser && $olduser->verified != 1) {
+            DB::table('verify_users')
+                ->where('user_id', $olduser->id)
+                ->delete();
+            DB::table('users')
+                ->where('id', $olduser->id)
+                ->delete();
+        }
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
@@ -28,16 +44,38 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 404);
         }
-
-        User::create([
+        $user = User::create([
             'username' => $request->get('username'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->get('password'))
         ]);
-        $user = User::first();
-        $token = JWTAuth::fromUser($user);
 
-        return Response::json(['success'=>true, 'user'=>$user, 'token'=>$token]);
+        VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => sha1(time())
+        ]);
+        Mail::to($user->email)->send(new VerifyMail($user));
+
+        return Response::json(['success'=>true, 'user'=>$user]);
+    }
+
+    public function verifyUser($token)
+    {
+        $verifyUser = VerifyUser::where('token', $token)->first();
+        if(isset($verifyUser) ){
+            $user = $verifyUser->user;
+            if(!$user->verified) {
+                $verifyUser->user->verified = 1;
+                $verifyUser->user->save();
+                $status = "Your e-mail is verified. You can now login.";
+            } else {
+                $status = "Your e-mail is already verified. You can now login.";
+            }
+        } else {
+            return Response::json(['success'=>false, 'msg'=>"Sorry your email cannot be identified."]);
+//            return redirect('/login')->with('warning', "Sorry your email cannot be identified.");
+        }
+        return Response::json(['success'=>true, 'msg'=>$status]);
     }
 
     public function setUserRole(Request $request)
@@ -49,7 +87,6 @@ class AuthController extends Controller
         if ($user == null) {
             return response()->json(['error'=>'can\'t find user with this email'], 500);
         }
-//        $role = $request->get('userRole');
         $role = Role::findByName($userRole);
         if ($role == null) {
             return response()->json(['error'=>'can\'t find this user role'], 500);
@@ -80,8 +117,12 @@ class AuthController extends Controller
             $user = Auth::getUser();
         }
 
+        if ($user->verified != 1) {
+            return response()->json(['error'=>'Your email is not verified, Try register again'], 401);
+        }
+
         if ($user->is_activated != 1) {
-            return response()->json(['error'=>'Your Account is Deactivated, Contact Admin'], 401);
+            return response()->json(['error'=>'Your Account is deactivated by admin, Contact to admin'], 401);
         }
 
 //        $roles = array();

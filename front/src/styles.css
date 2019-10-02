@@ -61,3 +61,10 @@ a {
 .mat-drawer-inner-container {
     background: #e9ebec;
 }
+.seach-input .seach-btn{
+    height: 20px;
+    margin-right: 3px !important;
+}
+.mat-drawer-content {
+    /*overflow: hidden !important;*/
+}

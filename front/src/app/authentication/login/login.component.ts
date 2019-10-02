@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('token', data['token']);
                 localStorage.setItem('profile', JSON.stringify(data['user']));
                 // this.router.navigate(['/forum'] );
-                this.dialogRef.close(false);
+                this.dialogRef.close(true);
                 window.location.reload();
               } else {
 

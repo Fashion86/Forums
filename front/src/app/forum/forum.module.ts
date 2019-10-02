@@ -27,9 +27,12 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VerifyUserComponent } from './verify-user/verify-user.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { SeachResultComponent } from './seach-result/seach-result.component';
 
 @NgModule({
-  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent, ProfileComponent],
+  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent, ProfileComponent, VerifyUserComponent, SeachResultComponent],
   imports: [
       CommonModule,
       RouterModule.forChild(ForumRoutes),
@@ -45,7 +48,8 @@ import { ProfileComponent } from './profile/profile.component';
       NgxDatatableModule,
       RatingModule,
       ReCaptchaModule,
-      QuillModule
+      QuillModule,
+      NgxSpinnerModule
   ]
 })
 export class ForumModule { }

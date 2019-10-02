@@ -26,7 +26,7 @@
                     <!--<img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">-->
                     <!--&lt;!&ndash; Light Logo text &ndash;&gt;-->
                     <!--<img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">-->
-                    <span style="color: white">Prematch Talk</span>
+                    <span style="color: white; font-size: 25px">Prematch</span>
                 </span>
             </a>
         </div>
@@ -60,6 +60,26 @@
         <!--<button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">-->
             <!--<mat-icon>settings</mat-icon>-->
         <!--</button>-->
+    </mat-toolbar>
+    <mat-toolbar color="primary" class="topbar telative" style="margin-top: 1px; display: flex; justify-content: space-between;
+        height: 34px !important; font-size: 18px !important; background-color: #55636de0 !important;">
+        <div>
+            <span>Prematch Community</span>
+        </div>
+        <div>
+            <input type="text" [(ngModel)]="serachTerm" class="seach-input" placeholder="Search Text" style="margin-right: 3px">
+            <!--<button [matMenuTriggerFor]="profile" mat-raised-button class="m-r-2">select</button>-->
+            <!--<mat-menu #profile="matMenu" class="mymegamenu">-->
+                <!--<button mat-menu-item>Profile </button>-->
+                <!--<button mat-menu-item (click)="logout()"> Sign Out </button>-->
+            <!--</mat-menu>-->
+            <select name="search" [(ngModel)]="serachType" (ngModelChange)="onSelect($event)" style="margin-right: 3px; height: 21px;">
+                <option value="all">Everything</option>
+                <option value="user">User</option>
+                <option value="forum">Forum</option>
+            </select>
+            <button class="seach-btn" (click)="onSearch()">Search</button>
+        </div>
     </mat-toolbar>
     <!-- ============================================================== -->
     <!-- End Topbar - style you can find in pages.scss -->

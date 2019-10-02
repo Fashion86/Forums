@@ -10,6 +10,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SeachResultComponent } from './seach-result/seach-result.component';
 
 export const ForumRoutes: Routes = [
   {
@@ -19,6 +20,14 @@ export const ForumRoutes: Routes = [
         path: '',
         component: HomeComponent,
         pathMatch: 'full'
+      },
+      {
+        path: 'user/verify/:token',
+        component: HomeComponent
+      },
+      {
+        path: 'search',
+        component: SeachResultComponent
       },
       {
         path: 'users',

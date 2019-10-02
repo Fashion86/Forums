@@ -13,9 +13,9 @@
   <mat-card-content>
     <div fxFlex.gt-sm="100" fxFlex="100">
       <mat-card style="margin: 0 !important;">
-        <mat-tab-group>
-          <!-- Tab 1 -->
-          <mat-tab label="Forum">
+        <!--<mat-tab-group>-->
+          <!--&lt;!&ndash; Tab 1 &ndash;&gt;-->
+          <!--<mat-tab label="Forum">-->
             <mat-card-content>
               <div class="toplabel">
                 <span>There is currently 1 person viewing this thread.</span>
@@ -74,7 +74,7 @@
 
                 </div>
               </div>
-              <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="padding-bottom: 1px;">
                 <div class="reply-content" [ngClass]="user? 'active' : 'deactive'">
                   <div class="header">
                     <span *ngIf="user">Post Your Reply</span>
@@ -91,7 +91,7 @@
                 </div>
               </div>
             </mat-card-content>
-          </mat-tab>
+          <!--</mat-tab>-->
           <!-- End Tab 1 -->
           <!-- Tab 2 -->
           <!--<mat-tab label="Football Blogs">-->
@@ -224,7 +224,7 @@
               <!--</div>-->
             <!--</mat-card-content>-->
           <!--</mat-tab>-->
-        </mat-tab-group>
+        <!--</mat-tab-group>-->
       </mat-card>
     </div>
   </mat-card-content>

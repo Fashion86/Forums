@@ -16,3 +16,5 @@ Route::get('/', function () {
     View::addExtension('html', 'php');
     return view::make('index');
 });
+//Auth::routes(['verify' => true]);
+//Route::get('/home', 'HomeController@index')->name('home');

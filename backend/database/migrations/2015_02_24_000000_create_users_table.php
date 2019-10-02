@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('notification_read_time')->nullable();
             $table->integer('discussions_count')->unsigned()->default(0);
             $table->integer('comments_count')->unsigned()->default(0);
+            $table->boolean('verified')->default(false);
             $table->timestamps();
         });
     }

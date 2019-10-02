@@ -16,6 +16,7 @@ import { AppHeaderComponent } from './header/header.component';
 import { AppSidebarComponent } from './sidebar/sidebar.component';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {MatSnackBar} from "@angular/material";
 /** @title Responsive sidenav */
 @Component({
   selector: 'app-full-layout',
@@ -33,6 +34,8 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   danger: boolean;
   showHide: boolean;
   sidebarOpened;
+  serachType = 'all';
+  serachTerm = null;
 
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
@@ -40,7 +43,9 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    private router: Router,
+    public snackBar: MatSnackBar
   ) {
     this.blue = true;
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
@@ -59,5 +64,18 @@ export class FullComponent implements OnDestroy, AfterViewInit {
     // This is for the megamenu
   }
 
-  // Mini sidebar
+  onSelect(event) {
+    // console.log('ddd', this.serachType)
+  }
+
+  onSearch() {
+    if(!this.serachTerm) {
+      this.snackBar.open('You must input search text at least 1 letter', 'Close', {
+        duration: 5000,
+        panelClass: 'blue-snackbar'
+      });
+    } else {
+      this.router.navigate(['/forum/search']);
+    }
+  }
 }

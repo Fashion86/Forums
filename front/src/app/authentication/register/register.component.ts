@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import {AuthService} from "../../services/auth.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 const password = new FormControl('', [Validators.required]);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
@@ -20,7 +21,11 @@ const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 export class RegisterComponent implements OnInit {
   public form: FormGroup;
   errorStr = null;
-  constructor(private fb: FormBuilder, private router: Router, private _authService: AuthService) {}
+  successMsg = null;
+  isSpinnerVisible = false;
+  constructor(private fb: FormBuilder, private router: Router,
+              private _authService: AuthService,
+              private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     this.errorStr = null;
@@ -38,10 +43,13 @@ export class RegisterComponent implements OnInit {
     });
     this.form.valueChanges.subscribe( (data) => {
       this.errorStr = null;
+      this.successMsg = null;
     });
   }
 
   onSubmit() {
+    this.successMsg = null;
+    this.spinner.show();
     const postdata = {
       username: this.form.value.username,
       email: this.form.value.email,
@@ -49,13 +57,16 @@ export class RegisterComponent implements OnInit {
     this._authService.signup(postdata)
         .subscribe(
             data => {
+              this.spinner.hide();
                   if (data['success']) {
-                    this.router.navigate(['/forum']);
+                    // this.router.navigate(['/forum']);
+                    this.successMsg = "We just sent verify message to your email, please check your inbox!"
                   } else {
 
                   }
                 },
             error => {
+              this.spinner.hide();
               const err = error['error'];
               if (err && err['error']) {
                 for (let key in err['error']) {
