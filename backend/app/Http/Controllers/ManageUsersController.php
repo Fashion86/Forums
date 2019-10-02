@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use App\User;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
@@ -17,6 +16,7 @@ use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -126,6 +126,9 @@ class ManageUsersController extends Controller
     public function deleteUser($id) {
         $user = User::find($id);
         try {
+            DB::table('verify_users')
+                ->where('user_id', $user->id)
+                ->delete();
             $user->delete();
             return response()->json(['success'=>'User Successfully Removed']);
         } catch(\Exception $e) {

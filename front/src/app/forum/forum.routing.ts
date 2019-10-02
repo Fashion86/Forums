@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SeachResultComponent } from './seach-result/seach-result.component';
+import {AuthGuard} from '../services/auth.guard';
+import {RolesGuardService} from '../services/roles-guard.service';
 
 export const ForumRoutes: Routes = [
   {
@@ -34,7 +36,7 @@ export const ForumRoutes: Routes = [
         children: [
           {
             path: '',
-            component: UsersComponent
+            component: UsersComponent, canActivate: [RolesGuardService]
           },
           {
             path: ':id',

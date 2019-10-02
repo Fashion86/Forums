@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
               }
             },
             error => {
-              const err = error['error'];console.log('dddd', err)
+              const err = error['error'];
               if (err && err['error']) {
                 this.errorStr = err['error'];
               }

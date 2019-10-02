@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
-import {MatChipInputEvent, MatChipList, MatSnackBar} from "@angular/material";
+import {MatChipInputEvent, MatChipList, MatDialog, MatSnackBar} from "@angular/material";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {PostService} from "../../services/post.service";
+import {Location} from "@angular/common";
+import {LoginComponent} from "../../authentication/login/login.component";
+import {ConfirmDlgComponent} from "../confirm-dlg/confirm-dlg.component";
 
 @Component({
   selector: 'app-topic',
@@ -26,6 +29,8 @@ export class TopicComponent implements OnInit {
   @ViewChild('chipList') chipList: MatChipList;
   constructor(private router: Router, private _formBuilder: FormBuilder,
               private _postService: PostService,
+              private location: Location,
+              public dialog: MatDialog,
               public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -39,9 +44,6 @@ export class TopicComponent implements OnInit {
       this.category = 4;
     }
     this.user = JSON.parse(localStorage.getItem('profile'));
-    if (!this.user) {
-      this.router.navigate(['/authentication/login']);
-    }
     this.tagFormGroup = this._formBuilder.group({
       // tags: this._formBuilder.array(this.tags.names, this.validateArrayNotEmpty),
       title: [null, Validators.compose([Validators.required])],
@@ -50,6 +52,28 @@ export class TopicComponent implements OnInit {
     // this.tagFormGroup.get('tags').statusChanges.subscribe(
     //     status => this.chipList.errorState = status === 'INVALID'
     // );
+    this.tagFormGroup.valueChanges.subscribe( (data) => {
+      if (!this.user) {
+        const dialogRef = this.dialog.open(LoginComponent, {
+          width: '450px',
+          height: '430px',
+          panelClass: 'custom-modalbox',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.user = JSON.parse(localStorage.getItem('profile'));
+          }
+        })
+      }
+      // if (!this.user) {
+      //   const dialogRef = this.dialog.open(ConfirmDlgComponent, {
+      //     width: '350px',
+      //     height: '150px',
+      //     panelClass: 'custom-modalbox',
+      //     data: {msg: 'Now you are not login, Please login and continue process!'}
+      //   });
+      // }
+    });
   }
 
   validateArrayNotEmpty(c: FormControl) {

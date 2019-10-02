@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { AppBlankComponent } from './layouts/blank/blank.component';
+import {AuthGuard} from './services/auth.guard';
+import {RolesGuardService} from './services/roles-guard.service';
 
 export const AppRoutes: Routes = [
   {

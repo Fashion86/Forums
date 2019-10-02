@@ -63,7 +63,6 @@ export class AppHeaderComponent {
       width: '450px',
       height: '430px',
       panelClass: 'custom-modalbox',
-      data: {msg: 'Are you sure delete it?'}
     });
 
   }

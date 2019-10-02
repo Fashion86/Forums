@@ -30,6 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { VerifyUserComponent } from './verify-user/verify-user.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SeachResultComponent } from './seach-result/seach-result.component';
+import {RolesGuardService} from "../services/roles-guard.service";
+import {AuthGuard} from "../services/auth.guard";
 
 @NgModule({
   declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent, ProfileComponent, VerifyUserComponent, SeachResultComponent],
@@ -50,6 +52,10 @@ import { SeachResultComponent } from './seach-result/seach-result.component';
       ReCaptchaModule,
       QuillModule,
       NgxSpinnerModule
+  ],
+  providers: [
+    AuthGuard,
+    RolesGuardService
   ]
 })
 export class ForumModule { }

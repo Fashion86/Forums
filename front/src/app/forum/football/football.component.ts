@@ -100,11 +100,7 @@ export class FootballComponent implements OnInit {
     });
   }
   onCreateTopic() {
-    if (!this.user) {
-      this.router.navigate(['/authentication/login']);
-    } else {
       this.router.navigate(['/forum/football/topic']);
-    }
   }
 
   goToUser(data) {
