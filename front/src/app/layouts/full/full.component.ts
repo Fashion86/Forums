@@ -69,13 +69,13 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   }
 
   onSearch() {
-    if(!this.serachTerm) {
-      this.snackBar.open('You must input search text at least 1 letter', 'Close', {
-        duration: 5000,
-        panelClass: 'blue-snackbar'
-      });
-    } else {
-      this.router.navigate(['/forum/search']);
-    }
+    // if(!this.serachTerm) {
+    //   this.snackBar.open('You must input search text at least 1 letter', 'Close', {
+    //     duration: 5000,
+    //     panelClass: 'blue-snackbar'
+    //   });
+    // } else {
+      this.router.navigate(['/forum/search'], {queryParams: { term: this.serachTerm, type: this.serachType}});
+    // }
   }
 }

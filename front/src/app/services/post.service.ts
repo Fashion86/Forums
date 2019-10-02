@@ -66,6 +66,14 @@ export class PostService {
         );
   }
 
+  public getSearch(param) {
+    return this.http
+        .post(Constants.API_URL + '/api/search', param)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   private jwt() {
     if (localStorage.getItem("token")) {
       const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));

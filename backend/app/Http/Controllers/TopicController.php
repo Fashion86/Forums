@@ -160,4 +160,10 @@ class TopicController extends Controller
     public function sendToContact(Request $request) {
         return response()->json(['success'=>true]);
     }
+
+    public function filterBySearch(Request $request) {
+
+
+        return response()->json(['data'=>'Topic Successfully Added', 'topic'=>'ff'], 201);
+    }
 }

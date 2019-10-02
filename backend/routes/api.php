@@ -39,6 +39,7 @@ Route::group([
     Route::get('latesttopics', 'TopicController@getLatestTopics');
     Route::delete('topic/{id}', 'TopicController@deleteTopic');
     Route::post('contact', 'EmailController@sendEmail');
+    Route::post('search', 'TopicController@filterBySearch');
 
     Route::post('post', 'PostController@addPost');
     Route::get('post/{id}', 'PostController@getPostById');
