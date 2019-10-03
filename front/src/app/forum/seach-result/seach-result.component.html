@@ -10,15 +10,55 @@
 <div class="row" style="margin: 0 0; display: flex">
   <div fxFlex.gt-sm="100" fxFlex="100">
     <mat-card>
-      <mat-card-header class="big-discuss text-black">
+      <mat-card-header class="bg-header text-black">
 
         <mat-card-title>
-          Search results
+          Search Rusult
         </mat-card-title>
 
       </mat-card-header>
-      <mat-card-content class="big-content">
-          coming soon!
+      <mat-card-content>
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <mat-card>
+            <!--// user-->
+            <div *ngIf="users.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <!--<img src="assets/images/football.jpg" alt="football" style="width: 30px">-->
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Users ({{usercount}})</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let user of users" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <!--<p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>-->
+                    <span style="height: 50px; display: flex">
+                      <img src="assets/images/man.png" alt="football" style="width: 50px">
+                      <a (click)="goToUser(user)">{{user.username}}</a>
+                    </span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </div>
+            <!--// football-->
+            <div *ngIf="topics.length > 0">
+              <mat-card-header>
+                <mat-card-title style="margin-left: 3px; display: flex;">
+                  <!--<img src="assets/images/football.jpg" alt="football" style="width: 30px">-->
+                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Forums ({{topiccount}})</span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap">
+                  <div *ngFor="let forum of topics" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
+                    <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
+                    <span [innerHtml]="forum.content"></span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </div>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

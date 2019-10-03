@@ -44,14 +44,16 @@ export class AppSidebarComponent implements OnDestroy {
     this.user = JSON.parse(localStorage.getItem('profile'));
     this.subscription = this._usersService.getUser().subscribe(user => {
       this.user = user;
-      const usermenu = this.sidemenus.find(m => m.name === 'Users');
-      if (!usermenu) {
-        const newmenu =    {
-          state: 'forum/users',
-          name: 'Users',
-          type: 'extLink'
-        };
-        this.sidemenus.push(newmenu);
+      if (this.user && this.user.role === 'admin') {
+        const usermenu = this.sidemenus.find(m => m.name === 'Users');
+        if (!usermenu) {
+          const newmenu = {
+            state: 'forum/users',
+            name: 'Users',
+            type: 'extLink'
+          };
+          this.sidemenus.push(newmenu);
+        }
       }
     });
     if (this.user && this.user.role === 'admin') {

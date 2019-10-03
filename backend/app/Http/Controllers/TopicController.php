@@ -163,7 +163,62 @@ class TopicController extends Controller
 
     public function filterBySearch(Request $request) {
 
+        $term = $request->get('term');
+        $type = $request->get('type');
+        try {
+            if ($type == 'user') {
+                $userquery = DB::table('users');
+                if ($term) {
+                    $userquery = $userquery->where('username', 'like', '%' . $term . '%');
+                }
+                $usercount = $userquery->count();
+                $userquery = $userquery->limit(15)
+                    ->orderBy('users.created_at', 'desc');
+                $users = $userquery->get();
 
-        return response()->json(['data'=>'Topic Successfully Added', 'topic'=>'ff'], 201);
+                return response()->json(['success'=>true, 'users'=>$users, 'usercount'=>$usercount,
+                    'topics'=>[], 'topiccount'=>0], 201);
+            }   elseif ($type == 'forum') {
+                $topicquery = DB::table('discussions')
+                    ->join('users', 'discussions.user_id', '=', 'users.id')
+                    ->select('discussions.*', 'users.username');
+                if ($term) {
+                    $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
+                }
+                $topiccount = $topicquery->count();
+                $topicquery = $topicquery->limit(15)
+                    ->orderBy('discussions.created_at', 'desc');
+                $topics = $topicquery->get();
+
+                return response()->json(['success'=>true, 'users'=>[], 'usercount'=>0,
+                    'topics'=>$topics, 'topiccount'=>$topiccount], 201);
+            } else {
+                $userquery = DB::table('users');
+                if ($term) {
+                    $userquery = $userquery->where('username', 'like', '%' . $term . '%');
+                }
+                $usercount = $userquery->count();
+                $userquery = $userquery->limit(10)
+                    ->orderBy('users.created_at', 'desc');
+                $users = $userquery->get();
+
+                $topicquery = DB::table('discussions')
+                    ->join('users', 'discussions.user_id', '=', 'users.id')
+                    ->select('discussions.*', 'users.username');
+                if ($term) {
+                    $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
+                }
+                $topiccount = $topicquery->count();
+                $topicquery = $topicquery->limit(10)
+                    ->orderBy('discussions.created_at', 'desc');
+                $topics = $topicquery->get();
+                return response()->json(['success'=>true, 'topics'=>$topics, 'topiccount'=>$topiccount, 'users'=>$users, 'usercount'=>$usercount], 201);
+            }
+
+        } catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
+        }
+
+
     }
 }
