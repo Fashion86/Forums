@@ -54,6 +54,13 @@
                     </mat-cell>
                   </ng-container>
 
+                  <ng-container matColumnDef="views">
+                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Views</span> </mat-header-cell>
+                    <mat-cell class="link" *matCellDef="let element">
+                      <span>{{element.view_count}}</span>
+                    </mat-cell>
+                  </ng-container>
+
                   <ng-container matColumnDef="latest">
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Latest Posts</span> </mat-header-cell>
                     <mat-cell *matCellDef="let element">

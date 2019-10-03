@@ -29,6 +29,15 @@ class PostController extends Controller
             return response()->json(['error' => $validator->errors()], 404);
         }
 
+        $user = User::find($request->get('user_id'));
+        if ($user->verified != 1) {
+            return response()->json(['error'=>'Your email is not verified, Try register again'], 401);
+        }
+
+        if ($user->is_activated != 1) {
+            return response()->json(['error'=>'Your Account is deactivated by admin, Contact to admin'], 401);
+        }
+
         Post::create([
             'discussion_id' => $request->get('discussion_id'),
             'user_id' => $request->get('user_id'),

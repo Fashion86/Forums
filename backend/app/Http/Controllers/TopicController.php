@@ -28,7 +28,14 @@ class TopicController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 404);
         }
+        $user = User::find($request->get('user_id'));
+        if ($user->verified != 1) {
+            return response()->json(['error'=>'Your email is not verified, Try register again'], 401);
+        }
 
+        if ($user->is_activated != 1) {
+            return response()->json(['error'=>'Your Account is deactivated by admin, Contact to admin'], 401);
+        }
         Discussion::create([
             'category_id' => $request->get('category_id'),
             'user_id' => $request->get('user_id'),
@@ -131,6 +138,10 @@ class TopicController extends Controller
 //                ->where('discussions.id', $id)
 //                ->first();
             $topic = Discussion::find($id);
+            DB::table('discussions')->where('id',$id)->update(array(
+                'view_count'=>$topic->view_count + 1,
+            ));
+
             $posts = DB::table('posts')
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->select('posts.*', 'users.username')
@@ -172,7 +183,7 @@ class TopicController extends Controller
                     $userquery = $userquery->where('username', 'like', '%' . $term . '%');
                 }
                 $usercount = $userquery->count();
-                $userquery = $userquery->limit(15)
+                $userquery = $userquery->limit(10)
                     ->orderBy('users.created_at', 'desc');
                 $users = $userquery->get();
 
@@ -186,7 +197,7 @@ class TopicController extends Controller
                     $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
                 }
                 $topiccount = $topicquery->count();
-                $topicquery = $topicquery->limit(15)
+                $topicquery = $topicquery->limit(10)
                     ->orderBy('discussions.created_at', 'desc');
                 $topics = $topicquery->get();
 
@@ -198,7 +209,7 @@ class TopicController extends Controller
                     $userquery = $userquery->where('username', 'like', '%' . $term . '%');
                 }
                 $usercount = $userquery->count();
-                $userquery = $userquery->limit(10)
+                $userquery = $userquery->limit(5)
                     ->orderBy('users.created_at', 'desc');
                 $users = $userquery->get();
 
@@ -209,7 +220,7 @@ class TopicController extends Controller
                     $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
                 }
                 $topiccount = $topicquery->count();
-                $topicquery = $topicquery->limit(10)
+                $topicquery = $topicquery->limit(5)
                     ->orderBy('discussions.created_at', 'desc');
                 $topics = $topicquery->get();
                 return response()->json(['success'=>true, 'topics'=>$topics, 'topiccount'=>$topiccount, 'users'=>$users, 'usercount'=>$usercount], 201);

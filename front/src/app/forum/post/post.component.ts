@@ -69,9 +69,6 @@ export class PostComponent implements OnInit {
   }
 
   onReply() {
-    if (!this.user) {
-      this.router.navigate(['/authentication/login']);
-    }
     if (!this.form.controls['content'].value) {
       window.alert('you must input post data')
     }
@@ -90,8 +87,12 @@ export class PostComponent implements OnInit {
               });
               this.ngOnInit();
             }, error => {
-              this.snackBar.open('Error Added!', 'Close', {
-                duration: 5000,
+              let err = 'Error Added!';
+              if (error['error']) {
+                err = error['error'].error;
+              }
+              this.snackBar.open(err, 'Close', {
+                duration: 7000,
                 panelClass: 'blue-snackbar'
               });
             });

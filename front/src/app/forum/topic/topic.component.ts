@@ -134,8 +134,12 @@ export class TopicComponent implements OnInit {
                 this.router.navigate(['/forum/rugby']);
               }
             }, error => {
-              this.snackBar.open('Error Added!', 'Close', {
-                duration: 5000,
+              let err = 'Error Added!';
+              if (error['error']) {
+                err = error['error'].error;
+              }
+              this.snackBar.open(err, 'Close', {
+                duration: 7000,
                 panelClass: 'blue-snackbar'
               });
             });

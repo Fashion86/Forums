@@ -1,6 +1,7 @@
 :host /deep/ .mat-card {
     padding: 0 !important;
     margin: 10px;
+    border-bottom: 1px solid #d2d4d6;
 }
 :host /deep/ .mat-card-header {
     padding: 4px !important;
@@ -61,7 +62,6 @@
         height: 35px;
         color: #505050;
         a {
-            margin-top: 10px;
             margin-left: 5px;
             font-weight: bold;
             color: #2789CE;
@@ -70,5 +70,24 @@
             cursor: pointer;
             color: #29a9fa;
         }
+    }
+}
+.more {
+    font-family: Tahoma, sans-serif;
+    font-size: 12px;
+    height: 25px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    background-color: #e7e8e9;
+    a {
+        float: right;
+        margin-right: 5px;
+        font-weight: bold;
+        color: #2789CE;
+    }
+    a:hover {
+        cursor: pointer;
+        color: #29a9fa;
     }
 }
