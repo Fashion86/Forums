@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate {
 
     canActivate() {
         // console.log(localStorage.getItem('token'));
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('profile')) {
             return true;
         }
 

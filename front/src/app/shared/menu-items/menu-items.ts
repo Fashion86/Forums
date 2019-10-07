@@ -53,7 +53,7 @@ const MENUITEMS = [
     },
   // {
   //   state: '',
-  //   name: 'Personal',
+  //   name: 'Manage',
   //   type: 'saperator',
   //   icon: 'av_timer'
   // },

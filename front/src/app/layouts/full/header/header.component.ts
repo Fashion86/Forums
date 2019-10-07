@@ -81,22 +81,26 @@ export class AppHeaderComponent {
     this.router.navigate(['/forum/contact-us']);
   }
 
+  onProfile() {
+    this.router.navigate(['/forum/profile']);
+  }
+
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('profile');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('profile');
     // this.router.navigate(['/forum']);
-    window.location.reload();
+    // window.location.reload();
 
     // this.user = JSON.parse(localStorage.getItem('profile'));
-    // this._authService.logout()
-    //     .subscribe(
-    //         data => {
-    //           localStorage.removeItem('token');
-    //           localStorage.removeItem('profile');
-    //           this.user = null;
-    //         },
-    //         error => {
-    //
-    //         });
+    this._authService.logout(this.user.id)
+        .subscribe(
+            data => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('profile');
+              window.location.reload();
+            },
+            error => {
+
+            });
   }
 }

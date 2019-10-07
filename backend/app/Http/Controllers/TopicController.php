@@ -132,11 +132,6 @@ class TopicController extends Controller
 
     public function getTopicById($id) {
         try {
-//            $topic = DB::table('discussions')
-//                ->join('users', 'discussions.user_id', '=', 'users.id')
-//                ->select('discussions.*', 'users.username')
-//                ->where('discussions.id', $id)
-//                ->first();
             $topic = Discussion::find($id);
             DB::table('discussions')->where('id',$id)->update(array(
                 'view_count'=>$topic->view_count + 1,
@@ -209,7 +204,7 @@ class TopicController extends Controller
                     $userquery = $userquery->where('username', 'like', '%' . $term . '%');
                 }
                 $usercount = $userquery->count();
-                $userquery = $userquery->limit(5)
+                $userquery = $userquery->limit(10)
                     ->orderBy('users.created_at', 'desc');
                 $users = $userquery->get();
 
@@ -220,11 +215,60 @@ class TopicController extends Controller
                     $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
                 }
                 $topiccount = $topicquery->count();
-                $topicquery = $topicquery->limit(5)
+                $topicquery = $topicquery->limit(10)
                     ->orderBy('discussions.created_at', 'desc');
                 $topics = $topicquery->get();
                 return response()->json(['success'=>true, 'topics'=>$topics, 'topiccount'=>$topiccount, 'users'=>$users, 'usercount'=>$usercount], 201);
             }
+
+        } catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
+        }
+
+
+    }
+
+    public function getAllTopicByFilter(Request $request) {
+
+        $term = $request->get('term');
+        $index = $request->get('pageIndex');
+        $size = $request->get('pageSize');
+        $offset = $index*$size;
+        try {
+            $topicquery = DB::table('discussions')
+                ->join('users', 'discussions.user_id', '=', 'users.id')
+                ->select('discussions.*', 'users.username');
+            if ($term) {
+                $topicquery = $topicquery->where('title', 'like', '%' . $term . '%');
+            }
+            $topiccount = $topicquery->count();
+            $topicquery = $topicquery->skip($offset)->take($size)
+                ->orderBy('discussions.created_at', 'desc');
+            $topics = $topicquery->get();
+
+            return response()->json(['success'=>true, 'topics'=>$topics, 'topiccount'=>$topiccount], 201);
+
+        } catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
+        }
+    }
+
+    public function getAllUserByFilter(Request $request) {
+
+        $term = $request->get('term');
+        $index = $request->get('pageIndex');
+        $size = $request->get('pageSize');
+        $offset = $index*$size;
+        try {
+            $userquery = DB::table('users');
+            if ($term) {
+                $userquery = $userquery->where('username', 'like', '%' . $term . '%');
+            }
+            $usercount = $userquery->count();
+            $userquery = $userquery->skip($offset)->take($size)
+                ->orderBy('users.created_at', 'desc');
+            $users = $userquery->get();
+            return response()->json(['success'=>true, 'users'=>$users, 'usercount'=>$usercount], 201);
 
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);

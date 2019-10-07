@@ -74,6 +74,22 @@ export class PostService {
         );
   }
 
+  public getAllUser(param) {
+    return this.http
+        .post(Constants.API_URL + '/api/alluser', param)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
+  public getAllTopic(param) {
+    return this.http
+        .post(Constants.API_URL + '/api/alltopic', param)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   private jwt() {
     if (localStorage.getItem("token")) {
       const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));

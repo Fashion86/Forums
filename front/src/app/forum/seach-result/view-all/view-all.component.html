@@ -13,21 +13,38 @@
       <mat-card-header class="bg-header text-black">
 
         <mat-card-title>
-          Search Rusult
+          <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">
+            Total
+            <span *ngIf="type === 'forum'"> Forums</span>
+            <span *ngIf="type === 'user'"> Users</span>
+            ({{totalCount}})
+            <span *ngIf="term"> for {{term}}</span>
+          </span>
         </mat-card-title>
 
       </mat-card-header>
       <mat-card-content>
         <div fxFlex.gt-sm="100" fxFlex="100">
           <mat-card>
-            <!--// user-->
-            <div *ngIf="users.length > 0">
-              <mat-card-header>
-                <mat-card-title style="margin-left: 3px; display: flex;">
-                  <!--<img src="assets/images/football.jpg" alt="football" style="width: 30px">-->
-                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Users ({{usercount}})</span>
-                </mat-card-title>
-              </mat-card-header>
+              <!--<mat-paginator [length]="totalCount"-->
+                             <!--[pageSize]="pageSize"-->
+                             <!--[pageIndex]="pageIndex"-->
+                             <!--[pageSizeOptions]="[15, 30, 50, 100]"-->
+                             <!--(page)="setPage($event)">-->
+              <!--</mat-paginator>-->
+            <mat-card-header>
+              <mat-paginator [length]="totalCount"
+                             [pageSize]="pageSize"
+                             [pageIndex]="pageIndex"
+                             [pageSizeOptions]="[15, 30, 50, 100]"
+                             (page)="setPage($event)">
+              </mat-paginator>
+              <!--<mat-card-title style="margin-left: 3px; display: flex;">-->
+              <!--<img src="assets/images/football.jpg" alt="football" style="width: 30px">-->
+              <!--<span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Total Users ({{totalCount}})<span *ngIf="term"> for {{term}}</span></span>-->
+              <!--</mat-card-title>-->
+            </mat-card-header>
+            <div *ngIf="type === 'user'">
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let user of users" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
@@ -40,28 +57,22 @@
                       </div>
                     </span>
                   </div>
-                  <div *ngIf="usercount > 10" class="more">
-                      <a (click)="viewAllUser()">More User Results ({{usercount}} Total)</a>
-                  </div>
                 </div>
               </mat-card-content>
             </div>
             <!--// football-->
-            <div *ngIf="topics.length > 0">
-              <mat-card-header>
-                <mat-card-title style="margin-left: 3px; display: flex;">
-                  <!--<img src="assets/images/football.jpg" alt="football" style="width: 30px">-->
-                  <span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Forums ({{topiccount}})</span>
-                </mat-card-title>
-              </mat-card-header>
+            <div *ngIf="type === 'forum'">
+              <!--<mat-card-header>-->
+                <!--<mat-card-title style="margin-left: 3px; display: flex;">-->
+                  <!--&lt;!&ndash;<img src="assets/images/football.jpg" alt="football" style="width: 30px">&ndash;&gt;-->
+                  <!--<span style="font-size: 16px; color: #3b515f; margin: 3px 15px;">Total Forums ({{totalCount}})<span *ngIf="term"> for {{term}}</span></span>-->
+                <!--</mat-card-title>-->
+              <!--</mat-card-header>-->
               <mat-card-content>
                 <div fxLayout="row wrap">
                   <div *ngFor="let forum of topics" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
                     <p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>
                     <span [innerHtml]="forum.content"></span>
-                  </div>
-                  <div *ngIf="topiccount > 10" class="more" style="height: 25px;">
-                      <a (click)="viewAllTopic()">More Topic Results ({{topiccount}} Total)</a>
                   </div>
                 </div>
               </mat-card-content>

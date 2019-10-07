@@ -60,9 +60,22 @@ File: scss
 	@import 'colors/dark'; 
   	@include angular-material-theme($dark-theme); 
 }
-  
+.saperator {
+	cursor: text;
+	font-size: 18px !important;
+	background-color: #bcc3c8;
+	margin: 0 !important;
+	height: 30px;
+	border-bottom: 2px solid #3b5160;
+	span {
+		color: black;
+		margin-left: 30px
+	;
+	}
+}
 
-$custom-typography: mat-typography-config( 
-  $font-family: 'Poppins'
+
+$custom-typography: mat-typography-config(
+$font-family: 'Poppins'
 ); 
 @include mat-core($custom-typography);

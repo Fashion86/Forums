@@ -22,6 +22,9 @@ export class PostComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   play = true;
+  topicId: number = null;
+  timer: any;
+  postTime = 10000; //ms
   constructor(private router: Router,
               private route: ActivatedRoute,
               private _postService: PostService,
@@ -31,27 +34,19 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.topic = new Topic();
+    clearTimeout(this.timer);
     this.user = JSON.parse(localStorage.getItem('profile'));
     this.form = this._formBuilder.group({
       content: [null, Validators.compose([Validators.required])]
     });
     this.route.params.subscribe(params => {
       if (params['topic']) {
-        this._postService.getTopic(params['topic'])
-            .subscribe(
-                res => {
-                  this.isSpinnerVisible = false;
-                    if (res['success']) {
-                      this.topic = res['data'];
-                    }
-                }, error => {
-                  this.isSpinnerVisible = false;
-                  this.goBack();
-                  this.snackBar.open('Error Added!', 'Close', {
-                    duration: 5000,
-                    panelClass: 'blue-snackbar'
-                  });
-                });
+        this.topicId = params['topic'];
+        this.getTopic();
+        this.timer = setInterval(() => {
+          this.getTopic();
+        }, this.postTime);
+
       } else {
         this.goBack();
       }
@@ -62,6 +57,23 @@ export class PostComponent implements OnInit {
     this.location.back();
   }
 
+  getTopic() {
+    this._postService.getTopic(this.topicId)
+        .subscribe(
+            res => {
+              this.isSpinnerVisible = false;
+              if (res['success']) {
+                this.topic = res['data'];
+              }
+            }, error => {
+              this.isSpinnerVisible = false;
+              this.goBack();
+              this.snackBar.open('Error Added!', 'Close', {
+                duration: 5000,
+                panelClass: 'blue-snackbar'
+              });
+            });
+  }
   setPage(event) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -106,6 +118,13 @@ export class PostComponent implements OnInit {
 
   onPlay(flag) {
     this.play = flag;
+    if (!this.play) {
+      clearTimeout(this.timer);
+    } else {
+      this.timer = setInterval(() => {
+        this.getTopic();
+      }, this.postTime);
+    }
   }
 
   goToUser(data) {

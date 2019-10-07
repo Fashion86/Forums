@@ -32,9 +32,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { SeachResultComponent } from './seach-result/seach-result.component';
 import {RolesGuardService} from "../services/roles-guard.service";
 import {AuthGuard} from "../services/auth.guard";
+import { ViewAllComponent } from './seach-result/view-all/view-all.component';
+import { MyProfileComponent } from './users/my-profile/my-profile.component';
 
 @NgModule({
-  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent, ProfileComponent, VerifyUserComponent, SeachResultComponent],
+  declarations: [FootballComponent, CricketComponent, TennisComponent, RagbiComponent, UsersComponent, TopicComponent, ContactUsComponent, HomeComponent, PostComponent, ProfileComponent, VerifyUserComponent, SeachResultComponent, ViewAllComponent, MyProfileComponent],
   imports: [
       CommonModule,
       RouterModule.forChild(ForumRoutes),

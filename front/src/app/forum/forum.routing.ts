@@ -13,6 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SeachResultComponent } from './seach-result/seach-result.component';
 import {AuthGuard} from '../services/auth.guard';
 import {RolesGuardService} from '../services/roles-guard.service';
+import { ViewAllComponent } from './seach-result/view-all/view-all.component';
+import { MyProfileComponent } from './users/my-profile/my-profile.component';
 
 export const ForumRoutes: Routes = [
   {
@@ -30,6 +32,14 @@ export const ForumRoutes: Routes = [
       {
         path: 'search',
         component: SeachResultComponent
+      },
+      {
+        path: 'profile',
+        component: MyProfileComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'search/allview',
+        component: ViewAllComponent
       },
       {
         path: 'users',

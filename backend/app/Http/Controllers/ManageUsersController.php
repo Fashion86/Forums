@@ -66,51 +66,27 @@ class ManageUsersController extends Controller
     public function updateUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255',
-            'name' => 'required',
-            'password'=> 'required',
-            'avatar'=> 'required',
-            'firstName'=> 'required',
-            'lastName'=> 'required',
-            'phone'=> 'required',
+            'id' => 'required',
+            'username' => 'required',
+            'email' => 'required|string|email|max:255'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
         $user = User::find($request->get('id'));
-        if ($user->email == $request->get('email')) {
+        if ($user) {
             $user->update([
-                'name' => $request->get('name'),
-                'password' => bcrypt($request->get('password')),
-                'avatar' => $request->get('avatar'),
-                'firstName' => $request->get('firstName'),
-                'lastName' => $request->get('lastName'),
-                'middleName' => $request->get('middleName'),
-                'phone' => $request->get('phone'),
+                'email' => $request->get('email'),
+                'username' => $request->get('username'),
+                'avatar_path' => $request->get('avatar_path'),
             ]);
         } else {
-            $user->update([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
-                'avatar' => $request->get('avatar'),
-                'firstName' => $request->get('firstName'),
-                'lastName' => $request->get('lastName'),
-                'middleName' => $request->get('middleName'),
-                'phone' => $request->get('phone'),
-            ]);
-        }
-
-        DB::table('model_has_roles')->where('model_id', $request->get('id'))->delete();
-        $role_ids = $request->get('role_ids');
-        foreach ($role_ids as $role_id) {
-            $role = Role::find($role_id);
-            $user->assignRole($role);
+            return Response::json(['success'=>false, 'msg'=>'User does not exist']);
         }
         $token = JWTAuth::fromUser($user);
 
-        return Response::json(['result'=>'User Successfully Updated', 'user'=>$user, 'token'=>$token]);
+        return Response::json(['success'=>true, 'msg'=>'User Successfully Updated', 'user'=>$user, 'token'=>$token]);
     }
 
     public function activeUser(Request $request) {
@@ -372,31 +348,5 @@ class ManageUsersController extends Controller
         }
     }
 
-    public function getRoles(Request $request) {
-        try {
 
-//            $user = JWTAuth::toUser(JWTAuth::parseToken());
-            $page = $request->filled('pageNo') ? $request->get('pageNo') : 1;
-            $limit = $request->filled('numPerPage') ? $request->get('numPerPage') : 10;
-            $totalCount = Role::count();
-            $roles = Role::orderBy('updated_at', 'desc')->skip(($page-1)*$limit)->take($limit)->get();
-
-            if ($roles != null) {
-                $roledatas = [];
-                foreach ($roles as $role) {
-                    $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-                        ->where("role_has_permissions.role_id",$role->id)
-                        ->get();
-                    $role->permissions = $rolePermissions;
-                    $roledatas[] = $role;
-                }
-                return response()->json(['totalCount'=>$totalCount, 'data'=> $roledatas], 200);
-            } else {
-                return response()->json(['error'=>'No Role is created!'], 500);
-            }
-
-        } catch (JWTException $e) {
-            return response()->json(['error'=>'User is not loggedIn!'], 500);
-        }
-    }
 }

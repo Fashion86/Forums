@@ -14,15 +14,19 @@ export class SeachResultComponent implements OnInit {
   topics = [];
   usercount = 0;
   topiccount = 0;
+  term = null;
+  type = 'all';
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
               private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      this.term = params['term'];console.log('ddd', this.term)
+      this.type = params['type'];
       const param = {
-        term: params['term'],
-        type: params['type']
+        term: this.term,
+        type: this.type
       };
       this.spinner.show();
       this._postService.getSearch(param)
@@ -45,4 +49,11 @@ export class SeachResultComponent implements OnInit {
     this.router.navigate(['/forum/users/' + user.id]);
   }
 
+  viewAllUser() {
+    this.router.navigate(['/forum/search/allview'], {queryParams: {term: this.term, type: 'user'}});
+  }
+
+  viewAllTopic() {
+    this.router.navigate(['/forum/search/allview'], {queryParams: {term: this.term, type: 'forum'}});
+  }
 }

@@ -18,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'is_activated', 'is_activated_article', 'role', 'avatar_path', 'verified',
+        'username', 'email', 'password', 'is_activated', 'logined', 'role', 'avatar_path', 'verified',
         'join_time', 'last_seen_time', 'read_time', 'notification_read_time', 'discussions_count', 'comments_count'
     ];
 
@@ -68,5 +68,10 @@ class User extends Authenticatable implements JWTSubject
     public function verifyUser()
     {
         return $this->hasOne(VerifyUser::class);
+    }
+
+    public function pwResetUser()
+    {
+        return $this->hasOne(PasswordReset::class);
     }
 }

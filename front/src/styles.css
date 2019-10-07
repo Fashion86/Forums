@@ -46,11 +46,6 @@
 a {
     color: #1e88e5;
 }
-#snav .saperator {
-    margin-left: 10px;
-    margin-bottom: 10px !important;
-    margin-top: 10px !important;
-}
 .mat-dialog-container {
     padding: 10px !important;
     overflow: hidden !important;
@@ -67,4 +62,12 @@ a {
 }
 .mat-drawer-content {
     /*overflow: hidden !important;*/
+}
+.my-button {
+    /*max-height: 30px;*/
+    margin-top: 12px;
+    line-height: 0;
+    margin-left: 10px;
+    /*min-width: 120px;*/
+    background: rgb(68, 138, 255);
 }

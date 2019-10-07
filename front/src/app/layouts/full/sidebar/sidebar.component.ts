@@ -44,6 +44,24 @@ export class AppSidebarComponent implements OnDestroy {
     this.user = JSON.parse(localStorage.getItem('profile'));
     this.subscription = this._usersService.getUser().subscribe(user => {
       this.user = user;
+      if (this.user) {
+        const separatemenu = this.sidemenus.find(m => m.name === 'Manage');
+        if (!separatemenu) {
+          const newmenu =    {
+            state: '',
+            name: 'Manage',
+            type: 'saperator'
+          };
+          const profilemenu =    {
+            state: 'forum/profile',
+            name: 'Profile',
+            type: 'extLink'
+          };
+          this.sidemenus.push(newmenu);
+          this.sidemenus.push(profilemenu);
+        }
+      }
+
       if (this.user && this.user.role === 'admin') {
         const usermenu = this.sidemenus.find(m => m.name === 'Users');
         if (!usermenu) {
@@ -56,6 +74,25 @@ export class AppSidebarComponent implements OnDestroy {
         }
       }
     });
+
+    if (this.user) {
+      const separatemenu = this.sidemenus.find(m => m.name === 'Manage');
+      if (!separatemenu) {
+        const newmenu =    {
+          state: '',
+          name: 'Manage',
+          type: 'saperator'
+        };
+        const profilemenu =    {
+          state: 'forum/profile',
+          name: 'Profile',
+          type: 'extLink'
+        };
+        this.sidemenus.push(newmenu);
+        this.sidemenus.push(profilemenu);
+      }
+    }
+
     if (this.user && this.user.role === 'admin') {
       const usermenu = this.sidemenus.find(m => m.name === 'Users');
       if (!usermenu) {

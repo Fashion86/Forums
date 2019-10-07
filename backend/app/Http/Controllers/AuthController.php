@@ -125,12 +125,9 @@ class AuthController extends Controller
             return response()->json(['error'=>'Your Account is deactivated by admin, Contact to admin'], 401);
         }
 
-//        $roles = array();
-//        foreach ($user->role as $role){
-//            $roles[] = $role->name;
-//        }
-//        $user->roleNames = $roles;
-//        $token = JWTAuth::fromUser($user);
+        DB::table('users')->where('id', $user->id)->update(array(
+            'logined'=>1,
+        ));
         return response()->json(['success'=>true, 'token'=>$token, 'user'=>$user]);
     }
 
@@ -144,9 +141,18 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        $this->guard()->logout();
+        $validator = Validator::make($request->all(), [
+            'id'=> 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 404);
+        }
+        DB::table('users')->where('id', $request->get('id'))->update(array(
+            'logined'=>0,
+        ));
+//        $this->guard()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }

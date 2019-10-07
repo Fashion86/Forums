@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username', 100)->unique();
             $table->string('email', 150)->unique();
             $table->boolean('is_activated')->default(1);
-            $table->boolean('is_activated_article')->default(0);
+            $table->boolean('logined')->default(0);
             $table->enum('role', array('admin', 'user'))->default('user');
             $table->string('password', 100);
             // $table->text('bio')->nullable();

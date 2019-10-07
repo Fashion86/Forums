@@ -30,9 +30,9 @@ export class AuthService {
         );
   }
 
-  public logout() {
+  public logout(id) {
     return this.http
-        .post(Constants.API_URL + '/api/logout', {}, this.jwt())
+        .post(Constants.API_URL + '/api/logout', {id: id}, this.jwt())
         .pipe(
             map((response: Response) => response)
         );
@@ -40,7 +40,7 @@ export class AuthService {
 
   public forgot(email: string) {
     return this.http
-        .post(Constants.API_URL + '/api/auth/forgotpasswd', {
+        .post(Constants.API_URL + '/api/forgotpasswd', {
           email: email
         })
         .pipe(

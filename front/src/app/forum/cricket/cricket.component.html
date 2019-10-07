@@ -14,11 +14,11 @@
   </mat-card-header>
   <mat-card-content>
     <div fxFlex.gt-sm="100" fxFlex="100">
-      <mat-card>
+      <!--<mat-card>-->
         <!--<mat-tab-group>-->
           <!--&lt;!&ndash; Tab 1 &ndash;&gt;-->
           <!--<mat-tab label="Forum">-->
-            <mat-card-content>
+            <!--<mat-card-content>-->
               <div class="table-responsive">
                 <div class="top-header">
                   <button mat-flat-button color="primary" class="btn pull-right" (click)="onCreateTopic()">Create Topic</button>
@@ -41,7 +41,8 @@
                   <ng-container matColumnDef="author">
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Author</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
-                      <img src="assets/images/online.png" alt="user" class="online-status">
+                      <img *ngIf="element.user?.logined == 1" src="assets/images/online.png" alt="user" class="online-status">
+                      <img *ngIf="element.user?.logined != 1" src="assets/images/offline.png" alt="user" class="online-status">
                       <a style="color: #2789CE; font-family: Tahoma, Arial, sans-serif"
                          (click)="goToUser(element)"> {{ element.username }} </a>
                     </mat-cell>
@@ -91,10 +92,10 @@
                   </mat-paginator>
                 </div>
               </div>
-            </mat-card-content>
+            <!--</mat-card-content>-->
           <!--</mat-tab>-->
         <!--</mat-tab-group>-->
-      </mat-card>
+      <!--</mat-card>-->
     </div>
   </mat-card-content>
 </mat-card>

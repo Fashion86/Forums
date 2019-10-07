@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar, MatTableDataSource} from "@angular/material";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../models/user";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-profile',
@@ -11,12 +12,12 @@ import {User} from "../../models/user";
 })
 export class ProfileComponent implements OnInit {
 
-  isSpinnerVisible = true;
   user: any;
   height = 300;
   constructor(private router: Router,
               private route: ActivatedRoute,
               private _usersService: UsersService,
+              private spinner: NgxSpinnerService,
               public snackBar: MatSnackBar) {
 
   }
@@ -26,12 +27,13 @@ export class ProfileComponent implements OnInit {
     this.height = window.innerHeight-140;
     this.route.params.subscribe(params => {
       if (params['id']) {
+        this.spinner.show();
         this._usersService.getUserById(params['id'])
             .subscribe(res => {
-              this.isSpinnerVisible = false;
+              this.spinner.hide();
               this.user = res['data'];
             }, error => {
-              this.isSpinnerVisible = false;
+              this.spinner.hide();
               console.log('Error get topic', error);
             });
       } else {

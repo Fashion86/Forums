@@ -22,6 +22,9 @@ Route::group([
 ], function ($router) {
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@registerUser');
+    Route::post('forgotpasswd', 'PasswordResetController@create');
+
+
     Route::post('setUserRole', 'AuthController@setUserRole');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
@@ -34,6 +37,9 @@ Route::group([
     Route::delete('user/{id}', 'ManageUsersController@deleteUser');
 
     Route::post('topic', 'TopicController@addTopic');
+    Route::post('alltopic', 'TopicController@getAllTopicByFilter');
+    Route::post('alluser', 'TopicController@getAllUserByFilter');
+
     Route::get('topic/{id}', 'TopicController@getTopicById');
     Route::get('topics/{category}', 'TopicController@getTopics');
     Route::get('latesttopics', 'TopicController@getLatestTopics');

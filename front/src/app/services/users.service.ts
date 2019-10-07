@@ -31,6 +31,14 @@ export class UsersService {
         );
   }
 
+  public updateUser(data) {
+    return this.http
+        .post(Constants.API_URL + '/api/updateUser',data, this.jwt())
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   public getUserById(id) {
     return this.http
         .get(Constants.API_URL + '/api/getUser/' + id, this.jwt())
