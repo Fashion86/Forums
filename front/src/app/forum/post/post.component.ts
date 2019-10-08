@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {Router, ActivatedRoute} from "@angular/router";
 import {PostService} from "../../services/post.service";
@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
 
   user: any;
   form: FormGroup;
@@ -42,6 +42,7 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['topic']) {
         this.topicId = params['topic'];
+        this.increaseCount();
         this.getTopic();
         this.timer = setInterval(() => {
           this.getTopic();
@@ -55,6 +56,17 @@ export class PostComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  increaseCount() {
+    this._postService.increaseCount(this.topicId)
+        .subscribe(
+            res => {
+              this.isSpinnerVisible = false;
+
+            }, error => {
+              this.isSpinnerVisible = false;
+            });
   }
 
   getTopic() {
@@ -129,5 +141,9 @@ export class PostComponent implements OnInit {
 
   goToUser(data) {
     this.router.navigate(['/forum/users/' + data.user_id]);
+  }
+
+  ngOnDestroy(){
+    clearTimeout(this.timer);
   }
 }

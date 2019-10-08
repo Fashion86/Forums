@@ -133,10 +133,6 @@ class TopicController extends Controller
     public function getTopicById($id) {
         try {
             $topic = Discussion::find($id);
-            DB::table('discussions')->where('id',$id)->update(array(
-                'view_count'=>$topic->view_count + 1,
-            ));
-
             $posts = DB::table('posts')
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->select('posts.*', 'users.username')
@@ -146,6 +142,19 @@ class TopicController extends Controller
             $user = User::find($topic->user_id);
             $topic->user = $user;
             $topic->posts = $posts;
+            return response()->json(['success'=>true, 'data'=>$topic], 201);
+        } catch(\Exception $e) {
+            return response()->json(['error'=>$e], 500);
+        }
+
+    }
+
+    public function addViewCountById($id) {
+        try {
+            $topic = Discussion::find($id);
+            DB::table('discussions')->where('id',$id)->update(array(
+                'view_count'=>$topic->view_count + 1,
+            ));
             return response()->json(['success'=>true, 'data'=>$topic], 201);
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);

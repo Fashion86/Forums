@@ -41,6 +41,7 @@ Route::group([
     Route::post('alluser', 'TopicController@getAllUserByFilter');
 
     Route::get('topic/{id}', 'TopicController@getTopicById');
+    Route::get('topic/addviewcount/{id}', 'TopicController@addViewCountById');
     Route::get('topics/{category}', 'TopicController@getTopics');
     Route::get('latesttopics', 'TopicController@getLatestTopics');
     Route::delete('topic/{id}', 'TopicController@deleteTopic');

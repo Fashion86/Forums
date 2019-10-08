@@ -34,6 +34,14 @@ export class PostService {
         );
   }
 
+  public increaseCount(id) {
+    return this.http
+        .get(Constants.API_URL + '/api/topic/addviewcount/' + id)
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
+
   public addTopic(data) {
     return this.http
         .post(Constants.API_URL + '/api/topic', data, this.jwt())
