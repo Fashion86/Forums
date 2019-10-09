@@ -63,17 +63,21 @@ File: scss
 .saperator {
 	cursor: text;
 	font-size: 18px !important;
-	background-color: #bcc3c8;
+	background-color: #1e88e538;
 	margin: 0 !important;
 	height: 30px;
 	border-bottom: 2px solid #3b5160;
 	span {
-		color: black;
+		color: #1c598e;
 		margin-left: 30px
 	;
 	}
 }
 
+:host /deep/ .mat-sort-header-arrow {
+	// transform: translateY(0px) !important;
+	opacity: 1 !important;
+}
 
 $custom-typography: mat-typography-config(
 $font-family: 'Poppins'

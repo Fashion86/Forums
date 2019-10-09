@@ -348,5 +348,24 @@ class ManageUsersController extends Controller
         }
     }
 
+    public function fileUpload($id, Request $request) {
+        $request->validate(['file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = 'assets/profiles';
+            $image->move($destinationPath, $name);
+            DB::table('users')->where('id',$id)->update(array(
+                'avatar_path'=>$destinationPath.'/'.$name,
+            ));
+            $user = User::find($id);
+            return response()->json(['success' => true, 'user'=>$user], 200);
+        } else {
+            return response()->json(['error' => "Image Upload error"], 500);
+        }
+    }
+
 
 }

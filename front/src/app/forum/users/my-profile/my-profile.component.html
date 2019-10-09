@@ -10,7 +10,7 @@
   <mat-card-header class="bg-header text-black">
 
     <mat-card-title>
-      My Profile
+      <span class="title">My Profile</span>
     </mat-card-title>
 
   </mat-card-header>
@@ -23,8 +23,11 @@
               <div class="aboutme">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                   <div class="text-center image">
-                    <img alt="homepage" class="logo-icon" src="assets/images/man.png">
-                    <button mat-raised-button class="btn my-button">upload image</button>
+                    <img *ngIf="user.avatar_path && !avataURL" alt="homepage" class="logo-icon" [src]="user.avatar_path">
+                    <img *ngIf="avataURL" alt="homepage" class="logo-icon" [src]="avataURL">
+                    <img *ngIf="!user.avatar_path && !avataURL" alt="homepage" class="logo-icon" src="assets/images/man.png">
+                    <button type="button" mat-raised-button class="btn my-button" (click)="fileInput.click()">upload image</button>
+                    <input hidden type="file" accept="image/*" (change)="selectimage($event)" #fileInput>
                   </div>
 
                   <div fxLayout="row wrap">

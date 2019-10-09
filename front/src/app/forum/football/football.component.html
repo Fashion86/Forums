@@ -8,7 +8,7 @@
   <mat-card-header class="bg-header text-black">
 
     <mat-card-title>
-      Football
+      <span class="title">Football</span>
     </mat-card-title>
 
   </mat-card-header>
@@ -43,7 +43,7 @@
                   </mat-paginator>
                 </div>
                 <div *ngIf="forums.length < 1" style="text-align: center">there is no any Topic yet</div>
-                <mat-table #table *ngIf="forums.length > 0" [dataSource]="dataSource" matSort>
+                <mat-table #table *ngIf="forums.length > 0" [dataSource]="dataSource" matSort (matSortChange)="resetSort($event)">
                   <ng-container matColumnDef="title">
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Topics: {{forums.length}}</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
@@ -62,21 +62,22 @@
                   </ng-container>
 
                   <ng-container matColumnDef="posts">
-                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Posts</span> </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Posts</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
                       <span *ngIf="element.posts.length > 0">{{element.posts.length}}</span>
+                      <span *ngIf="element.posts.length < 1">0</span>
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="views">
-                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Views</span> </mat-header-cell>
+                  <ng-container matColumnDef="view_count">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Views</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
                       <span>{{element.view_count}}</span>
                     </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="latest">
-                    <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Latest Posts</span> </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Latest Posts</span> </mat-header-cell>
                     <mat-cell *matCellDef="let element">
                       <a [routerLink]="['/forum/football/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'short'}}, by {{element.posts[0].username}}</a>
                     </mat-cell>

@@ -24,13 +24,13 @@
     height: auto;
 }
 .topbar {
-    background-color: #3b5160 !important;
+    background-color: #1e88e5 !important;
 }
 .profile-text {
     border-bottom: 2px solid #3b5160;
 }
 .bg-header {
-    background-color: #3b516042;
+    background-color: #1e88e5;
     border-bottom: 2px solid #3b5160;
 }
 
@@ -70,4 +70,10 @@ a {
     margin-left: 10px;
     /*min-width: 120px;*/
     background: rgb(68, 138, 255);
+}
+.title{
+    color: white;
+}
+.mat-card-title {
+    min-height: 30px;
 }

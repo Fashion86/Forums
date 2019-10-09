@@ -80,8 +80,11 @@
 <div style="display: flex; margin-right: 10px">
     <button mat-icon-button class="m-r-5" style="width: 100px;" (click)="onContactUs()">Contact Us </button>
     <div *ngIf="user">
+        <!--<button mat-icon-button class="m-r-5" style="width: 100px;" (click)="logout()">Sign Out </button>-->
         <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-            <img src="assets/images/man.png" alt="user" class="profile-pic"> </button>
+            <!--<img src="assets/images/man.png" alt="user" class="profile-pic">-->
+            Profile
+        </button>
         <mat-menu #profile="matMenu" class="mymegamenu">
             <!--<button mat-menu-item>-->
                 <!--<mat-icon>settings</mat-icon> Settings </button>-->

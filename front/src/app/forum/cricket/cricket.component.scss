@@ -23,7 +23,7 @@
 }
 
 :host /deep/ .mat-tab-labels {
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%, rgba(59, 81, 96, 0.26)));
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%, #1e88e585));
 }
 :host /deep/ mat-header-row {
   min-height: 35px;

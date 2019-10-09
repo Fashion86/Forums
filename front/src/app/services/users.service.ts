@@ -77,6 +77,14 @@ export class UsersService {
             map((response: Response) => response)
         );
   }
+
+  uploadPhoto(userId, formdata) {
+    return this.http
+        .post(Constants.API_URL + '/api/user/' + userId + '/photo', formdata, )
+        .pipe(
+            map((response: Response) => response)
+        );
+  }
   private jwt() {
     if (localStorage.getItem("token")) {
       const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));

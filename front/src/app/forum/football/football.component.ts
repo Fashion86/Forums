@@ -5,6 +5,7 @@ import { filter, pairwise } from 'rxjs/operators';
 import {PostService} from "../../services/post.service";
 import {User} from "../../models/user";
 import {ConfirmDlgComponent} from "../confirm-dlg/confirm-dlg.component";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-football',
@@ -21,7 +22,7 @@ export class FootballComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns = ['title', 'author', 'posts', 'views', 'latest', 'option'];
+  displayedColumns = ['title', 'author', 'posts', 'view_count', 'latest', 'option'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
@@ -106,4 +107,21 @@ export class FootballComponent implements OnInit {
   goToUser(data) {
     this.router.navigate(['/forum/users/' + data.user_id]);
   }
+
+  resetSort(event) {
+    // this.forums.sort(function(a,b){
+    //   // Turn your strings into dates, and then subtract them
+    //   // to get a value that is either negative, positive, or zero.
+    //   if(a.posts.length > 0 && b.posts.length > 0){
+    //     return new Date(b.posts[0].created_at) - new Date(a.posts[0].created_at);
+    //   } else
+    // });
+    if (event.active !== 'latest') {
+      this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
+    } else {
+      // this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
+    }
+    this.dataSource = new MatTableDataSource(this.forums);
+  }
+
 }

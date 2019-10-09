@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../../models/user";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UsersService} from "../../../services/users.service";
@@ -17,6 +17,9 @@ export class MyProfileComponent implements OnInit {
   public form: FormGroup;
   user: User;
   height = 300;
+  avataURL: any = null;
+  imageFile: any;
+  @ViewChild('fileInput') fileInput: ElementRef;
   constructor(private router: Router,
               private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -28,6 +31,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fileInput.nativeElement.value = '';
     this.user = JSON.parse(localStorage.getItem('profile'));
     this.height = window.innerHeight-140;
     this.initForm();
@@ -48,6 +52,20 @@ export class MyProfileComponent implements OnInit {
               if (data['success']) {
                 localStorage.setItem('profile', JSON.stringify(data['user']));
                 this._usersService.setUser(data['user']);
+                if (this.imageFile) {
+                  const formData: FormData = new FormData();
+                  formData.append( 'file', this.imageFile);
+                  this._usersService.uploadPhoto(this.user.id, formData)
+                      .subscribe(
+                          data => {
+                            console.log('dddddd', data['user'])
+                            this.imageFile = null;
+                            localStorage.setItem('profile', JSON.stringify(data['user']));
+                          },
+                          error => {
+                            this.spinner.hide();
+                          });
+                }
               } else {
 
               }
@@ -58,4 +76,17 @@ export class MyProfileComponent implements OnInit {
             });
   }
 
+  async selectimage(event): Promise<void> {
+    this.imageFile = event.target.files.item(0);
+    this.avataURL = await this.getBase64(event.target.files.item(0));
+  }
+
+  async getBase64(file): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
 }

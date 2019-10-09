@@ -3,7 +3,7 @@ export class User {
   username: string;
   email: string;
   is_activated: number;
-  is_activated_article: boolean;
+  logined: boolean;
   avatar_path: string;
   join_time: Date;
   last_seen_time: Date;

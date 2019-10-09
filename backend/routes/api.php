@@ -35,6 +35,7 @@ Route::group([
     Route::post('updateUser', 'ManageUsersController@updateUser');
     Route::post('activeUser', 'ManageUsersController@activeUser');
     Route::delete('user/{id}', 'ManageUsersController@deleteUser');
+    Route::post('user/{id}/photo', 'ManageUsersController@fileUpload');
 
     Route::post('topic', 'TopicController@addTopic');
     Route::post('alltopic', 'TopicController@getAllTopicByFilter');
