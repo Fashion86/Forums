@@ -80,6 +80,9 @@ class ManageUsersController extends Controller
                 'email' => $request->get('email'),
                 'username' => $request->get('username'),
                 'avatar_path' => $request->get('avatar_path'),
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
+                'phone' => $request->get('phone'),
             ]);
         } else {
             return Response::json(['success'=>false, 'msg'=>'User does not exist']);
@@ -110,37 +113,6 @@ class ManageUsersController extends Controller
         } catch(\Exception $e) {
             return response()->json(['error'=>$e], 500);
         }
-    }
-
-    public function setUserRole(Request $request)
-    {
-//        $request = $request->all();
-        $email=$request['email'];
-        $userRole=$request['userRole'];
-        $user = User::where('email',$email)->first();
-        if ($user == null) {
-            return response()->json(['error'=>'can\'t find user with this email'], 500);
-        }
-//        $role = $request->get('userRole');
-        $role = Role::findByName($userRole);
-        if ($role == null) {
-            return response()->json(['error'=>'can\'t find this user role'], 500);
-        }
-        $user->assignRole($role);
-        return response()->json(['result'=>'success']);
-    }
-
-    public function getRoleNames() {
-        $roles = Role::all();
-        foreach ($roles as $role) {
-            $role_names[] = $role['name'];
-        }
-        return $roles;
-    }
-
-    public function getUserRoles($user) {
-        $roles = $user->getRoleNames();
-        return $roles;
     }
 
     public function getUsers() {
@@ -200,91 +172,6 @@ class ManageUsersController extends Controller
         }
     }
 
-    public function addPermission(Request $request) {
-        try {
-//            if ($user = JWTAuth::toUser(JWTAuth::parseToken())) {
-                try {
-                    $permission = Permission::create(['name' => $request->get('name')]);
-                    return response()->json(['result' => 'Permission Successfully Created!', 'permission' => $permission], 200);
-                } catch (\Exception $e) {
-                    return response()->json(['error' => 'Permission Already Exist!'], 500);
-                }
-//            } else {
-//                return response()->json(['error' => 'User not Found'], 404);
-//            }
-        } catch (\Exception $e) {
-            return response()->json(['error'=>'Failed Permission Exist!'], 500);
-        }
-    }
-
-    public function updatePermission(Request $request) {
-        try {
-//            if ($user = JWTAuth::toUser(JWTAuth::parseToken())) {
-                $permission = DB::table('permissions')->where('id', $request['id'])->update(['name' => $request['name']]);
-                return response()->json(['result' => 'Permission Successfully Updated!'], 200);
-//            } else {
-//                return response()->json(['error' => 'User not Found'], 404);
-//            }
-        } catch (\Exception $e) {
-            return response()->json(['error'=>'Failed Permission Updating!'], 500);
-        }
-    }
-
-    public function deletePermission(Request $request) {
-        try {
-//            if ($user = JWTAuth::toUser(JWTAuth::parseToken())) {
-                $permission = DB::table('permissions')->where('id', $request['id'])->delete();
-                if ($permission) {
-                    return response()->json(['result' => 'Permission Successfully Deleted!'], 200);
-                }
-                else {
-                    return response()->json(['result' => 'Current Permission is not exist!'], 404);
-                }
-//            } else {
-//                return response()->json(['error' => 'User not Found'], 404);
-//            }
-        } catch (\Exception $e) {
-            return response()->json(['error'=>'Failed Permission Delete!'], 500);
-        }
-    }
-
-    public function getPermissions(Request $request) {
-        try {
-
-//            $user = JWTAuth::toUser(JWTAuth::parseToken());
-            $page = $request->filled('pageNo') ? $request->get('pageNo') : 1;
-            $limit = $request->filled('numPerPage') ? $request->get('numPerPage') : 10;
-            $permissions = Permission::orderBy('updated_at', 'desc')->skip(($page-1)*$limit)->take($limit)->get();
-            $totalCount = Permission::count();
-            return response()->json(['total '=>$totalCount, 'data'=>$permissions], 200);;
-
-        } catch (\Exception $e) {
-            return response()->json(['error'=>'User is not loggedIn!'], 500);
-        }
-    }
-
-    public function addRole(Request $request) {
-        try {
-//            if ($user = JWTAuth::toUser(JWTAuth::parseToken())) {
-            try {
-                $role = Role::Create(['name' => $request->get('name')]);
-                $permission_ids = $request['permission_ids'];
-                foreach ($permission_ids as $permission_id) {
-                    $permission = Permission::findById($permission_id);
-                    $role->givePermissionTo($permission);
-                }
-                return response()->json(['result' => 'Successfully Created Role with Permissions'], 200);
-            } catch (JWTException $e) {
-                return response()->json(['error' => 'Already Created This Role'], 500);
-            }
-//            } else {
-//                return response()->json(['error' => 'User not Found'], 404);
-//            }
-        } catch (JWTException $e) {
-            return response()->json(['error'=>'Failed Create Role'], 500);
-        }
-    }
-
     public function getRoleByID() {
         $roleId = Input::get('roleId') != null ? Input::get('roleId') : 1;
         $role = Role::where('id', $roleId)->first();
@@ -327,24 +214,6 @@ class ManageUsersController extends Controller
 //            }
         } catch (JWTException $e) {
             return response()->json(['error'=>'Failed Update Role'], 500);
-        }
-    }
-
-    public function deleteRole(Request $request) {
-        try {
-//            if ($user = JWTAuth::toUser(JWTAuth::parseToken())) {
-                DB::table('role_has_permissions')->where('role_id', $request['id'])->delete();
-                $role = DB::table('roles')->where('id', $request['id'])->delete();
-                if ($role) {
-                    return response()->json(['result' => 'Successfully Removed Role with Permissions'], 200);
-                } else {
-                    return response()->json(['error' => 'User not Found'], 404);
-                }
-//            } else {
-//                return response()->json(['error' => 'Failed Remove Role'], 404);
-//            }
-        } catch (JWTException $e) {
-            return response()->json(['error'=>'Failed Remove Role'], 500);
         }
     }
 

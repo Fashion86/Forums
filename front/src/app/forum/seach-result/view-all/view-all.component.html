@@ -50,7 +50,8 @@
                   <div *ngFor="let user of users" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
                     <!--<p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>-->
                     <span style="height: 50px; display: flex">
-                      <img src="assets/images/man.png" alt="football" style="width: 50px">
+                      <img *ngIf="user.avatar_path" [src]="user.avatar_path" alt="football" style="width: 50px">
+                      <img *ngIf="!user.avatar_path" src="assets/images/man.png" alt="football" style="width: 50px">
                       <div style="display: grid">
                         <a (click)="goToUser(user)">{{user.username}}</a>
                         <span class="before" style="color: #161725;"><span>Joined: </span>{{user.created_at | date: 'mediumDate'}}</span>

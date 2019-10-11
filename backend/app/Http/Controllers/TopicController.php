@@ -65,7 +65,11 @@ class TopicController extends Controller
                 $user = User::find($topic->user_id);
                 $topic->user = $user;
                 $topic->posts = $posts;
-//                $topic->latestpost = $posts[0];
+                if(count($posts) > 0){
+                    $topic->latestpost = $posts[0];
+                } else{
+                    $topic->latestpost = null;
+                }
             }
             return response()->json(['success'=>true, 'data'=>$topics], 201);
         } catch(\Exception $e) {

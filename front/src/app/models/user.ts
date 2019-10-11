@@ -2,6 +2,9 @@ export class User {
   id: number;
   username: string;
   email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
   is_activated: number;
   logined: boolean;
   avatar_path: string;

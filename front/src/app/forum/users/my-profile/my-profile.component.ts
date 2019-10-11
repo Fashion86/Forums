@@ -40,12 +40,23 @@ export class MyProfileComponent implements OnInit {
     this.form = this.fb.group({
       username: [this.user.username, Validators.compose([Validators.required])],
       email: [this.user.email, Validators.compose([Validators.required, CustomValidators.email])],
+      first_name: [this.user.first_name, Validators.compose([])],
+      last_name: [this.user.last_name, Validators.compose([])],
+      phone: [this.user.phone, Validators.compose([])],
     });
   }
 
   onSubmit() {
     this.spinner.show();
-    this._usersService.updateUser({id: this.user.id, email: this.form.value.email, username: this.form.value.username})
+    const updateuser = {
+      id: this.user.id,
+      email: this.form.value.email,
+      username: this.form.value.username,
+      first_name: this.form.value.first_name,
+      last_name: this.form.value.last_name,
+      phone: this.form.value.phone
+    };
+    this._usersService.updateUser(updateuser)
         .subscribe(
             data => {
               this.spinner.hide();

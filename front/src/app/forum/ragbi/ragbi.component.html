@@ -34,7 +34,7 @@
                   <ng-container matColumnDef="title">
                     <mat-header-cell *matHeaderCellDef> <span class="mat-h-title">Topics: {{forums.length}}</span> </mat-header-cell>
                     <mat-cell class="link" *matCellDef="let element">
-                      <a [routerLink]="['/forum/rugby/post', {topic: element.id}]" style="color: #2789CE; font-weight: 500" > {{ element.title }} </a>
+                      <a [routerLink]="['/forum/rugby/post', {topic: element.id}]" style="color: #2789CE; font-weight: 700" > {{ element.title }} </a>
                     </mat-cell>
                   </ng-container>
 
@@ -66,7 +66,7 @@
                   <ng-container matColumnDef="latest">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Latest Posts</span> </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                      <a [routerLink]="['/forum/football/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'short'}}, by {{element.posts[0].username}}</a>
+                      <a [routerLink]="['/forum/football/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'MMM d y h:mm a'}}, by {{element.posts[0].username}}</a>
                     </mat-cell>
                   </ng-container>
 

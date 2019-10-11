@@ -26,7 +26,8 @@
                   <div class="header">
                     <a>{{topic.title}}</a>
                     <div style="display: flex">
-                      <img src="assets/images/man.png" alt="football" style="width: 35px">
+                      <img *ngIf="topic.user?.avatar_path" [src]="user.avatar_path" alt="football" style="width: 50px">
+                      <img *ngIf="!topic.user?.avatar_path" src="assets/images/man.png" alt="football" style="width: 50px">
                       <div style="display: grid">
                         <div class="user-info">
                           <a (click)="goToUser(topic)" style="margin: 3px 5px;">{{topic.user?.username}}</a>

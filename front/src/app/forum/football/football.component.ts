@@ -22,7 +22,7 @@ export class FootballComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns = ['title', 'author', 'posts', 'view_count', 'latest', 'option'];
+  displayedColumns = ['title', 'author', 'posts', 'view_count', 'latestpost', 'option'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
@@ -116,11 +116,7 @@ export class FootballComponent implements OnInit {
     //     return new Date(b.posts[0].created_at) - new Date(a.posts[0].created_at);
     //   } else
     // });
-    if (event.active !== 'latest') {
-      this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
-    } else {
-      // this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
-    }
+    this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
     this.dataSource = new MatTableDataSource(this.forums);
   }
 

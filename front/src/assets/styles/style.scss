@@ -78,7 +78,14 @@ File: scss
 	// transform: translateY(0px) !important;
 	opacity: 1 !important;
 }
+.mat-row{
+	min-height: 30px !important;
+}
+p{
+	margin-block-start: 0.5em !important;
+	margin-block-end: 0.5em !important;
 
+}
 $custom-typography: mat-typography-config(
 $font-family: 'Poppins'
 ); 
