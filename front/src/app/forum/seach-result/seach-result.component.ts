@@ -16,23 +16,23 @@ export class SeachResultComponent implements OnInit {
   topiccount = 0;
   term = null;
   type = 'all';
+  isSpinnerVisible = true;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
               private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.term = params['term'];console.log('ddd', this.term)
+      this.term = params['term'];
       this.type = params['type'];
       const param = {
         term: this.term,
         type: this.type
       };
-      this.spinner.show();
       this._postService.getSearch(param)
           .subscribe(
               res => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
                 if (res['success']) {
                   this.topics = res['topics'];
                   this.users = res['users'];
@@ -40,9 +40,10 @@ export class SeachResultComponent implements OnInit {
                   this.topiccount = res['topiccount'];
                 }
               }, error => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
               });
-    })
+    });
+    this.isSpinnerVisible = false;
   }
 
   goToUser(user) {

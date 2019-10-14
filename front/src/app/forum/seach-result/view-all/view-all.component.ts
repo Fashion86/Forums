@@ -17,6 +17,7 @@ export class ViewAllComponent implements OnInit {
   totalCount: number = 0;
   pageIndex: number = 0;
   pageSize: number = 15;
+  isSpinnerVisible = true;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
               private spinner: NgxSpinnerService) { }
@@ -46,30 +47,29 @@ export class ViewAllComponent implements OnInit {
   }
 
   setPageData(param) {
-    this.spinner.show();
     if (this.type === 'user') {
       this._postService.getAllUser(param)
           .subscribe(
               res => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
                 if (res['success']) {
                   this.users = res['users'];
                   this.totalCount = res['usercount'];
                 }
               }, error => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
               });
     } else if (this.type === 'forum') {
       this._postService.getAllTopic(param)
           .subscribe(
               res => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
                 if (res['success']) {
                   this.topics = res['topics'];
                   this.totalCount = res['topiccount'];
                 }
               }, error => {
-                this.spinner.hide();
+                this.isSpinnerVisible = false;
               });
     }
   }

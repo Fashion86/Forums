@@ -19,6 +19,7 @@ export class MyProfileComponent implements OnInit {
   height = 300;
   avataURL: any = null;
   imageFile: any;
+  isSpinnerVisible = true;
   @ViewChild('fileInput') fileInput: ElementRef;
   constructor(private router: Router,
               private fb: FormBuilder,

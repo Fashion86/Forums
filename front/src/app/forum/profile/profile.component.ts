@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
 
   user: any;
   height = 300;
+  isSpinnerVisible = true;
   constructor(private router: Router,
               private route: ActivatedRoute,
               private _usersService: UsersService,
@@ -27,19 +28,19 @@ export class ProfileComponent implements OnInit {
     this.height = window.innerHeight-140;
     this.route.params.subscribe(params => {
       if (params['id']) {
-        this.spinner.show();
         this._usersService.getUserById(params['id'])
             .subscribe(res => {
-              this.spinner.hide();
+              this.isSpinnerVisible = false;
               this.user = res['data'];
             }, error => {
-              this.spinner.hide();
+              this.isSpinnerVisible = false;
               console.log('Error get topic', error);
             });
       } else {
 
       }
     });
+    this.isSpinnerVisible = false;
   }
 
   goToTopic(data, id = null) {

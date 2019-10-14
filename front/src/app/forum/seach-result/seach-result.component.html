@@ -1,12 +1,10 @@
-<ngx-spinner
-    bdColor = "rgba(51,51,51,0.48)"
-    size = "medium"
-    color = "#fff"
-    type = "line-spin-fade"
-    [fullScreen] = "false"
->
-  <!--<p style="color: white" > Loading... </p>-->
-</ngx-spinner>
+<div class="preloader" *ngIf="isSpinnerVisible">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+
 <div class="row" style="margin: 0 0; display: flex">
   <div fxFlex.gt-sm="100" fxFlex="100">
     <mat-card>
@@ -33,8 +31,8 @@
                   <div *ngFor="let user of users" class="recent-content" fxFlex.gt-sm="100" fxFlex="100">
                     <!--<p><a [routerLink]="['/forum/football/post', {topic: forum.id}]">{{forum.title}}</a></p>-->
                     <span style="height: 50px; display: flex">
-                      <img *ngIf="user.avatar_path" [src]="user.avatar_path" alt="football" style="width: 50px">
-                      <img *ngIf="!user.avatar_path" src="assets/images/man.png" alt="football" style="width: 50px">
+                      <img *ngIf="user.avatar_path" [src]="user.avatar_path" alt="football" class="useriamge">
+                      <img *ngIf="!user.avatar_path" src="assets/images/man.png" alt="football" class="useriamge">
                       <div style="display: grid">
                         <a (click)="goToUser(user)">{{user.username}}</a>
                         <span class="before" style="color: #161725;"><span>Joined: </span>{{user.created_at | date: 'mediumDate'}}</span>
