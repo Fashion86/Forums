@@ -45,6 +45,8 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 404);
         }
         $user = User::create([
+            'first_name' => $request->get('first_name'),
+            'last_name' => $request->get('last_name'),
             'username' => $request->get('username'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->get('password'))

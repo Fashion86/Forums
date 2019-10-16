@@ -24,7 +24,7 @@
     height: auto;
 }
 .topbar {
-    background-color: #1e88e5 !important;
+    background-color: #fafafa !important;
 }
 .profile-text {
     border-bottom: 2px solid #3b5160;
@@ -80,4 +80,22 @@ a {
 .useriamge {
     width: 50px;
     height: 50px;
+}
+.mat-card-header .mat-card-title {
+    margin-bottom: -7px !important;
+}
+.mat-column-title {
+    flex: 0 0 40%;
+}
+.mat-column-author {
+    flex: 0 0 15%;
+}
+.mat-column-posts {
+    flex: 0 0 10%;
+}
+.mat-column-view_count {
+    flex: 0 0 10%;
+}
+.mat-column-latestpost {
+    flex: 0 0 25%;
 }

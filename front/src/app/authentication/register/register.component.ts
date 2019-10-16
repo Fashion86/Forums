@@ -30,6 +30,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.errorStr = null;
     this.form = this.fb.group({
+      first_name: [
+        null,
+        Validators.compose([])
+      ],
+      last_name: [
+        null,
+        Validators.compose([])
+      ],
       username: [
         null,
         Validators.compose([Validators.required])
@@ -51,6 +59,8 @@ export class RegisterComponent implements OnInit {
     this.successMsg = null;
     this.spinner.show();
     const postdata = {
+      first_name: this.form.value.first_name,
+      last_name: this.form.value.last_name,
       username: this.form.value.username,
       email: this.form.value.email,
       password: this.form.value.password};
@@ -60,7 +70,7 @@ export class RegisterComponent implements OnInit {
               this.spinner.hide();
                   if (data['success']) {
                     // this.router.navigate(['/forum']);
-                    this.successMsg = "We just sent verify message to your email, please check your inbox!"
+                    this.successMsg = "We have just sent you a verification message to your email, please check your inbox!"
                   } else {
 
                   }

@@ -74,7 +74,7 @@ export class AppHeaderComponent {
 
   }
   onRegister() {
-    this.router.navigate(['/authentication/register']);
+    this.router.navigate([]).then(result => {  window.open('/authentication/register', '_blank'); });
   }
 
   onContactUs() {

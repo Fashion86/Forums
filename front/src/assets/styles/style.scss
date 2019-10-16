@@ -87,6 +87,6 @@ p{
 
 }
 $custom-typography: mat-typography-config(
-$font-family: 'Poppins'
+$font-family: 'Arial,Tahoma,Verdana,Helvetica,sans-serif'
 ); 
 @include mat-core($custom-typography);

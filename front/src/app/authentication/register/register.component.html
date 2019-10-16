@@ -7,7 +7,8 @@
 >
   <!--<p style="color: white" > Loading... </p>-->
 </ngx-spinner>
-<div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
+<!--<div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">-->
+<div class="login-register">
   <div class="login-register-box">
     <mat-card>
       <mat-card-content>
@@ -22,7 +23,19 @@
             <!-- col full-->
             <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
               <mat-form-field style="width: 100%">
-                <input matInput placeholder="User Name" type="email" [formControl]="form.controls['username']">
+                <input matInput placeholder="First Name" type="text" [formControl]="form.controls['first_name']">
+              </mat-form-field>
+            </div>
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <mat-form-field style="width: 100%">
+                <input matInput placeholder="Last Name" type="text" [formControl]="form.controls['last_name']">
+              </mat-form-field>
+            </div>
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <mat-form-field style="width: 100%">
+                <input matInput placeholder="User Name" type="text" [formControl]="form.controls['username']">
               </mat-form-field>
               <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">You must include a user name.</small>
             </div>
