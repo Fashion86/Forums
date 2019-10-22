@@ -70,6 +70,14 @@
                     </mat-cell>
                   </ng-container>
 
+                  <ng-container matColumnDef="latestpost">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Latest Posts</span> </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <a [routerLink]="['/forum/tennis/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.latestpost && checkToday(element.latestpost.created_at)">Today {{element.latestpost.created_at | date: 'h:mm a'}}, by {{element.latestpost.username}}</a>
+                      <a [routerLink]="['/forum/tennis/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.latestpost && !checkToday(element.latestpost.created_at)">{{element.latestpost.created_at | date: 'MMM d y h:mm a'}}, by {{element.latestpost.username}}</a>
+                    </mat-cell>
+                  </ng-container>
+
                   <ng-container matColumnDef="option">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let element">

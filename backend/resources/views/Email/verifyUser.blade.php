@@ -5,7 +5,7 @@
 </head>
 <body>
 <div  style="text-align: center;  background-color: #8d9ba024; padding: 20px">
-    <div style=""><h3>Thanks for your joining the Prematch Talk</h3></div>
+    <div style=""><h3>Thanks for joining PreMatchTalk</h3></div>
     <div style="padding: 20px;">
         <p>Your registered email-id is {{$user['email']}} , Please click on the below button to verify your email account</p>
 
@@ -21,7 +21,7 @@
     <div style="float: left">
         <p>
             Have questions about the Prematch Talk? Contact us to
-            prematchtalk1@gmail.com
+            info@prematchtalk.com
         </p>
     </div>
 

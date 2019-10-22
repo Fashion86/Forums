@@ -109,15 +109,18 @@ export class FootballComponent implements OnInit {
   }
 
   resetSort(event) {
-    // this.forums.sort(function(a,b){
-    //   // Turn your strings into dates, and then subtract them
-    //   // to get a value that is either negative, positive, or zero.
-    //   if(a.posts.length > 0 && b.posts.length > 0){
-    //     return new Date(b.posts[0].created_at) - new Date(a.posts[0].created_at);
-    //   } else
-    // });
     this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
     this.dataSource = new MatTableDataSource(this.forums);
   }
 
+  checkToday(date) {
+    const last_date = new Date(date);
+    const diff = ((new Date()).getTime() - last_date.getTime()) / 1000;
+    const daydiff = diff / 86400;
+    if (daydiff > 1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

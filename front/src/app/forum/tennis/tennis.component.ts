@@ -22,7 +22,7 @@ export class TennisComponent implements OnInit {
   pageIndex: number;
   pageSize: number;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns = ['title', 'author', 'posts', 'view_count', 'latest', 'option'];
+  displayedColumns = ['title', 'author', 'posts', 'view_count', 'latestpost', 'option'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute,
               private _postService: PostService,
@@ -109,18 +109,18 @@ export class TennisComponent implements OnInit {
   }
 
   resetSort(event) {
-    // this.forums.sort(function(a,b){
-    //   // Turn your strings into dates, and then subtract them
-    //   // to get a value that is either negative, positive, or zero.
-    //   if(a.posts.length > 0 && b.posts.length > 0){
-    //     return new Date(b.posts[0].created_at) - new Date(a.posts[0].created_at);
-    //   } else
-    // });
-    if (event.active !== 'latest') {
-      this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
-    } else {
-      // this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
-    }
+    this.forums = _.orderBy(this.forums, [event.active], [event.direction]);
     this.dataSource = new MatTableDataSource(this.forums);
+  }
+
+  checkToday(date) {
+    const last_date = new Date(date);
+    const diff = ((new Date()).getTime() - last_date.getTime()) / 1000;
+    const daydiff = diff / 86400;
+    if (daydiff > 1) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

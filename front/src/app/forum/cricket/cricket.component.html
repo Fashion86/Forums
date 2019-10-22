@@ -63,10 +63,11 @@
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="latest">
+                  <ng-container matColumnDef="latestpost">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="mat-h-title" style="color: #2789CE">Latest Posts</span> </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                      <a [routerLink]="['/forum/football/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.posts.length > 0">{{element.posts[0].created_at | date: 'MMM d y h:mm a'}}, by {{element.posts[0].username}}</a>
+                      <a [routerLink]="['/forum/cricket/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.latestpost && checkToday(element.latestpost.created_at)">Today {{element.latestpost.created_at | date: 'h:mm a'}}, by {{element.latestpost.username}}</a>
+                      <a [routerLink]="['/forum/cricket/post', {topic: element.id}]" style="color: #2789CE; font-family: Tahoma, Arial, sans-serif" *ngIf="element.latestpost && !checkToday(element.latestpost.created_at)">{{element.latestpost.created_at | date: 'MMM d y h:mm a'}}, by {{element.latestpost.username}}</a>
                     </mat-cell>
                   </ng-container>
 
