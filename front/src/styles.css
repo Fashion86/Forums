@@ -61,7 +61,7 @@ a {
     margin-right: 3px !important;
 }
 .mat-drawer-content {
-    /*overflow: hidden !important;*/
+    overflow: hidden !important;
 }
 .my-button {
     /*max-height: 30px;*/
