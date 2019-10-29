@@ -20,8 +20,7 @@
 <div  style="text-align: center; padding: 20px">
     <div style="float: left">
         <p>
-            Have questions about the Prematch Talk? Contact us to
-            info@prematchtalk.com
+            Have you got any questions about the Prematch Talk? Contact us to info@prematchtalk.com
         </p>
     </div>
 

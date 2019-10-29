@@ -141,7 +141,7 @@ class TopicController extends Controller
                 ->join('users', 'posts.user_id', '=', 'users.id')
                 ->select('posts.*', 'users.username')
                 ->where('posts.discussion_id', $id)
-                ->orderBy('posts.created_at', 'desc')
+                ->orderBy('posts.created_at', 'asc')
                 ->get();
             $user = User::find($topic->user_id);
             $topic->user = $user;

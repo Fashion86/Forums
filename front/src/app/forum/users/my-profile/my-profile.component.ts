@@ -39,7 +39,7 @@ export class MyProfileComponent implements OnInit {
   }
   initForm() {
     this.form = this.fb.group({
-      username: [this.user.username, Validators.compose([Validators.required])],
+      // username: [this.user.username, Validators.compose([Validators.required])],
       email: [this.user.email, Validators.compose([Validators.required, CustomValidators.email])],
       first_name: [this.user.first_name, Validators.compose([])],
       last_name: [this.user.last_name, Validators.compose([])],

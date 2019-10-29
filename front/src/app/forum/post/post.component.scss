@@ -186,3 +186,15 @@ a:hover {
 :host /deep/ .mat-card-content {
   display: initial !important;
 }
+.content-wrap {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .content-wrap {
+    overflow: auto;
+  }
+}
+.mat-row {
+  border: none !important;
+}

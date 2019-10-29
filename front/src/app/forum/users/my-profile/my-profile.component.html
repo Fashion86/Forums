@@ -38,20 +38,14 @@
 
                   <div fxLayout="row wrap">
                     <!-- col full-->
-                    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-                      <mat-form-field>
-                        <input matInput type="text" placeholder="User Name" [formControl]="form.controls['username']" [disabled]="true">
-                      </mat-form-field>
-                      <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">User name is required.</small>
-                    </div>
+                    <!--<div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">-->
+                      <!--<mat-form-field>-->
+                        <!--<input matInput type="text" placeholder="User Name" [formControl]="form.controls['username']" [disabled]="true">-->
+                      <!--</mat-form-field>-->
+                      <!--<small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">User name is required.</small>-->
+                    <!--</div>-->
                     <!-- col full-->
-                    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-                      <mat-form-field>
-                        <input matInput placeholder="Email" [formControl]="form.controls['email']">
-                      </mat-form-field>
-                      <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">Email is required.</small>
-                      <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">You must include a valid email address.</small>
-                    </div>
+
 
                     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
                       <mat-form-field>
@@ -63,6 +57,14 @@
                       <mat-form-field>
                         <input matInput type="text" placeholder="Last Name" [formControl]="form.controls['last_name']">
                       </mat-form-field>
+                    </div>
+
+                    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+                      <mat-form-field>
+                        <input matInput placeholder="Email" [formControl]="form.controls['email']">
+                      </mat-form-field>
+                      <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">Email is required.</small>
+                      <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">You must include a valid email address.</small>
                     </div>
 
                     <!--<div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">-->

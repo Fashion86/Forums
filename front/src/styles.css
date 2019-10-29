@@ -61,7 +61,7 @@ a {
     margin-right: 3px !important;
 }
 .mat-drawer-content {
-    overflow: hidden !important;
+    /*overflow: hidden !important;*/
 }
 .my-button {
     /*max-height: 30px;*/
@@ -88,14 +88,27 @@ a {
     flex: 0 0 40%;
 }
 .mat-column-author {
-    flex: 0 0 15%;
+    flex: 0 0 20%;
 }
 .mat-column-posts {
-    flex: 0 0 10%;
+    flex: 0 0 7%;
 }
 .mat-column-view_count {
-    flex: 0 0 10%;
+    flex: 0 0 7%;
 }
 .mat-column-latestpost {
-    flex: 0 0 25%;
+    flex: 0 0 22%;
+}
+
+.mat-column-option {
+    flex: 0 0 30px;
+}
+.content-wrap {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .content-wrap {
+        overflow: auto;
+    }
 }
